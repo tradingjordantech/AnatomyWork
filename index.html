@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>A&P Study Hub v3 — NSU Nursing</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;900&family=Nunito:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{--bg:#0f1117;--surface:#161920;--card:#1c2028;--card2:#222730;--border:#2a2f3a;--border2:#333847;--accent:#4f8ef7;--teal:#34d4b0;--rose:#f7617a;--amber:#f5a623;--violet:#a78bfa;--correct:#22c55e;--wrong:#ef4444;--text:#e8eaf2;--text2:#b0b8cc;--muted:#6b7280;--fh:'Playfair Display',serif;--fb:'Nunito',sans-serif;--fm:'JetBrains Mono',monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--fb);min-height:100vh;overflow-x:hidden;line-height:1.6}
+::-webkit-scrollbar{width:5px;height:5px}::-webkit-scrollbar-track{background:var(--surface)}::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
+.hdr{position:sticky;top:0;z-index:300;background:rgba(15,17,23,.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:56px}
+.hdr-brand{display:flex;align-items:center;gap:11px}
+.hdr-logo{width:33px;height:33px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--teal));display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0}
+.hdr-t h1{font-family:var(--fh);font-size:1.05rem;background:linear-gradient(135deg,var(--accent),var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hdr-t p{font-size:.62rem;color:var(--muted);letter-spacing:.12em;text-transform:uppercase}
+#hdr-score{background:var(--card);border:1px solid var(--border2);border-radius:9px;padding:4px 12px;text-align:center;display:none}
+#hdr-score.on{display:block}
+#hdr-score-n{font-family:var(--fh);font-size:.95rem;color:var(--amber)}
+.hdr-score-l{font-size:.58rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}
+.tabs{background:var(--surface);border-bottom:1px solid var(--border);display:flex;padding:0 20px;overflow-x:auto;gap:1px}
+.tabs::-webkit-scrollbar{height:2px}
+.tab{background:none;border:none;color:var(--muted);font-family:var(--fb);font-size:.73rem;font-weight:700;padding:11px 11px;cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;transition:all .2s}
+.tab:hover{color:var(--text2)}
+.tab.on{color:var(--accent);border-bottom-color:var(--accent)}
+.tab.locked-tab{color:#3a4050!important;cursor:not-allowed}
+.tab.passed-tab{color:var(--teal)!important}
+.main{max-width:960px;margin:0 auto;padding:28px 14px}
+.view{display:none}
+.view.on{display:block;animation:fu .26s ease}
+@keyframes fu{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+.hero{background:linear-gradient(135deg,#0d1220,#111827);border:1px solid var(--border2);border-radius:16px;padding:32px 36px;margin-bottom:22px;position:relative;overflow:hidden}
+.hero h2{font-family:var(--fh);font-size:1.9rem;margin-bottom:7px;background:linear-gradient(135deg,#fff,var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero p{color:var(--text2);font-size:.87rem;line-height:1.75;max-width:520px}
+.hero-pills{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.hp{background:rgba(255,255,255,.05);border:1px solid var(--border2);border-radius:20px;padding:3px 11px;font-size:.68rem;color:var(--text2)}
+.sec-lbl{display:flex;align-items:center;gap:9px;font-size:.66rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:22px 0 11px}
+.sec-lbl::after{content:'';flex:1;height:1px;background:var(--border)}
+.hgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:9px}
+.hcard{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden}
+.hcard::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--cc,var(--accent));border-radius:12px 12px 0 0}
+.hcard:hover:not(.locked-card){transform:translateY(-2px);border-color:var(--cc,var(--accent))}
+.hcard.locked-card{opacity:.4;cursor:not-allowed}
+.hcard-badge{position:absolute;top:10px;right:12px;font-size:.82rem}
+.cn{font-family:var(--fm);font-size:.6rem;color:var(--cc,var(--accent));margin-bottom:5px;letter-spacing:.08em}
+.hcard h3{font-family:var(--fh);font-size:.9rem;margin-bottom:3px;line-height:1.3}
+.hcard p{font-size:.72rem;color:var(--muted);line-height:1.5}
+.cpills{margin-top:9px;display:flex;gap:5px;flex-wrap:wrap}
+.cpill{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:20px;padding:2px 8px;font-size:.63rem;color:var(--muted)}
+.notes-hdr{margin-bottom:20px}
+.notes-hdr h2{font-family:var(--fh);font-size:1.7rem;margin-bottom:3px}
+.notes-hdr p{color:var(--muted);font-size:.84rem}
+.ch{background:var(--card);border:1px solid var(--border);border-radius:13px;margin-bottom:9px;overflow:hidden}
+.ch-hdr{padding:15px 18px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;transition:background .2s;user-select:none}
+.ch-hdr:hover{background:rgba(255,255,255,.02)}
+.ch-hdr-l{display:flex;align-items:center;gap:11px}
+.ch-ico{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ch-ttl{font-family:var(--fh);font-size:.92rem}
+.ch-sub{font-size:.66rem;color:var(--muted);margin-top:1px}
+.chev{color:var(--muted);transition:transform .3s;flex-shrink:0;font-style:normal}
+.ch.open .chev{transform:rotate(180deg)}
+.ch-body{display:none;border-top:1px solid var(--border)}
+.ch.open .ch-body{display:block}
+.ni{padding:20px 20px 22px}
+.ni h4{font-size:.65rem;font-weight:800;letter-spacing:.13em;text-transform:uppercase;color:var(--teal);margin:18px 0 8px}
+.ni h4:first-child{margin-top:0}
+.ni h5{font-size:.8rem;font-weight:700;color:var(--accent);margin:13px 0 6px;padding-left:8px;border-left:2px solid var(--accent)}
+.ni p{font-size:.845rem;color:var(--text2);line-height:1.85;margin-bottom:9px}
+.ni ul{list-style:none;padding:0}
+.ni ul li{font-size:.845rem;color:var(--text2);line-height:1.75;padding:3px 0 3px 17px;position:relative}
+.ni ul li::before{content:"A";position:absolute;left:0;color:var(--accent);font-weight:800}
+.ni ul li b,.ni p b,.ni p strong{color:var(--text)}
+.ni-img{margin:14px 0;border-radius:9px;overflow:hidden;border:1px solid var(--border2)}
+.ni-img img{width:100%;max-height:280px;object-fit:contain;background:#1a1f2a;display:block;padding:6px}
+.ni-img figcaption{padding:7px 11px;font-size:.67rem;color:var(--muted);background:var(--card2);line-height:1.5}
+.nt-box{border-radius:9px;padding:11px 13px;margin:12px 0;font-size:.82rem;line-height:1.75}
+.nt-box.star{background:rgba(245,166,35,.08);border:1px solid rgba(245,166,35,.2);color:#c9921a}
+.nt-box.tip{background:rgba(52,212,176,.07);border:1px solid rgba(52,212,176,.17);color:#26a88a}
+.nt-box.warn{background:rgba(247,97,122,.08);border:1px solid rgba(247,97,122,.2);color:#c23f5e}
+.mnem-box{background:linear-gradient(135deg,rgba(167,139,250,.1),rgba(167,139,250,.04));border:1px solid rgba(167,139,250,.2);border-radius:9px;padding:11px 13px;margin:10px 0}
+.mnem-lbl{font-size:.6rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--violet);margin-bottom:4px}
+.mnem-t{font-family:var(--fh);font-size:.97rem;color:#c4b5fd;margin-bottom:3px}
+.mnem-x{font-size:.74rem;color:var(--violet);line-height:1.5}
+.nt-tbl{width:100%;border-collapse:collapse;margin:11px 0;font-size:.77rem}
+.nt-tbl th{background:rgba(255,255,255,.05);color:var(--text);padding:8px 9px;text-align:left;font-weight:700;border:1px solid var(--border2)}
+.nt-tbl td{padding:7px 9px;border:1px solid var(--border);color:var(--text2);vertical-align:top;line-height:1.5}
+.nt-tbl tr:nth-child(even) td{background:rgba(255,255,255,.02)}
+.src-sec{background:rgba(255,255,255,.02);border-top:1px solid var(--border);padding:13px 18px}
+.src-lbl{font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.src-links{display:flex;flex-wrap:wrap;gap:6px}
+.src-a{display:inline-flex;align-items:center;gap:4px;background:var(--card2);border:1px solid var(--border2);border-radius:6px;padding:4px 9px;font-size:.7rem;color:var(--accent);text-decoration:none;transition:all .2s}
+.src-a:hover{background:rgba(79,142,247,.1);border-color:var(--accent)}
+.quiz-hdr{margin-bottom:20px}
+#quiz-title{font-family:var(--fh);font-size:1.6rem;margin-bottom:10px}
+.prog-bg{background:var(--border);border-radius:10px;height:5px;overflow:hidden}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--teal));border-radius:10px;transition:width .4s ease}
+.prog-meta{display:flex;justify-content:space-between;font-size:.68rem;color:var(--muted);margin-top:5px}
+.q-card{background:var(--card);border:1px solid var(--border2);border-radius:13px;padding:24px;margin-bottom:13px}
+.q-num{font-family:var(--fm);font-size:.66rem;color:var(--muted);margin-bottom:7px;letter-spacing:.08em}
+.q-txt{font-size:.98rem;font-weight:700;line-height:1.65;margin-bottom:18px;color:var(--text)}
+.opts{display:flex;flex-direction:column;gap:7px}
+.opt{background:var(--surface);border:1.5px solid var(--border);color:var(--text);font-family:var(--fb);font-size:.84rem;font-weight:600;padding:10px 15px;border-radius:9px;cursor:pointer;text-align:left;transition:all .18s;display:flex;align-items:center;gap:9px}
+.opt-lbl{width:25px;height:25px;border-radius:6px;background:var(--border);display:flex;align-items:center;justify-content:center;font-family:var(--fm);font-size:.66rem;font-weight:600;flex-shrink:0;transition:all .18s;color:var(--muted)}
+.opt:hover:not(:disabled){border-color:var(--accent);background:rgba(79,142,247,.07)}
+.opt:hover:not(:disabled) .opt-lbl{background:var(--accent);color:#fff}
+.opt.ans-correct{border-color:var(--correct);background:rgba(34,197,94,.08)}
+.opt.ans-correct .opt-lbl{background:var(--correct);color:#fff}
+.opt.ans-wrong{border-color:var(--wrong);background:rgba(239,68,68,.08)}
+.opt.ans-wrong .opt-lbl{background:var(--wrong);color:#fff}
+.opt:disabled{cursor:default}
+.fb{margin-top:9px;padding:9px 12px;border-radius:8px;font-size:.79rem;display:none;font-weight:700}
+.fb.on{display:block}
+.fb.ok{background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);color:var(--correct)}
+.fb.bad{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);color:var(--wrong)}
+.qnav{display:flex;justify-content:space-between;align-items:center}
+.btn{background:var(--accent);color:#fff;border:none;font-family:var(--fb);font-size:.84rem;font-weight:700;padding:10px 22px;border-radius:8px;cursor:pointer;transition:all .2s}
+.btn:hover{opacity:.85;transform:translateY(-1px)}
+.btn:disabled{opacity:.3;cursor:default;transform:none}
+.btn.sec{background:var(--card2);border:1px solid var(--border2);color:var(--text2)}
+.btn.teal{background:var(--teal);color:#001a14}
+.res-card{background:var(--card);border:1px solid var(--border2);border-radius:15px;padding:28px;text-align:center;margin-bottom:15px}
+.res-emoji{font-size:2.6rem;margin-bottom:4px}
+.res-score{font-family:var(--fh);font-size:3.2rem;line-height:1;margin:5px 0}
+.res-title{font-family:var(--fh);font-size:1.15rem;margin-bottom:5px}
+.res-msg{color:var(--muted);font-size:.83rem;margin-bottom:16px;line-height:1.6}
+.res-bd{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:14px}
+.bd{background:var(--surface);border:1px solid var(--border2);border-radius:10px;padding:11px 17px;text-align:center}
+.bd-n{font-family:var(--fh);font-size:1.5rem}
+.bd-l{font-size:.62rem;color:var(--muted);margin-top:2px;text-transform:uppercase;letter-spacing:.08em}
+.review-list{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:13px 15px;margin:11px 0;text-align:left;max-height:200px;overflow-y:auto}
+.review-list h4{font-size:.62rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:9px}
+.rv-item{display:flex;align-items:flex-start;gap:8px;padding:5px 0;border-bottom:1px solid var(--border);font-size:.76rem}
+.rv-item:last-child{border-bottom:none}
+.rv-icon{font-size:.85rem;flex-shrink:0;margin-top:1px}
+.rv-txt{color:var(--text2);line-height:1.5}
+#res-actions{display:flex;gap:9px;justify-content:center;flex-wrap:wrap;margin-top:4px}
+.cd-card{background:var(--card);border:1px solid rgba(239,68,68,.28);border-radius:15px;padding:36px;text-align:center}
+.cd-emoji{font-size:3rem;margin-bottom:10px}
+.cd-card h2{font-family:var(--fh);font-size:1.45rem;color:var(--rose);margin-bottom:8px}
+.cd-card p{color:var(--muted);font-size:.85rem;line-height:1.7;margin-bottom:20px}
+#cd-timer{font-family:var(--fh);font-size:2.7rem;color:var(--amber);margin:12px 0 6px}
+.cd-sub{font-size:.72rem;color:var(--muted);margin-bottom:20px}
+.cd-btns{display:flex;gap:9px;justify-content:center;flex-wrap:wrap}
+.ls-card{background:var(--card);border:1px solid var(--border2);border-radius:15px;padding:44px;text-align:center}
+.ls-emoji{font-size:3rem;margin-bottom:10px}
+.ls-card h2{font-family:var(--fh);font-size:1.35rem;margin-bottom:8px}
+.ls-card p{color:var(--muted);font-size:.85rem;line-height:1.7;margin-bottom:20px}
+.ls-btns{display:flex;gap:9px;justify-content:center;flex-wrap:wrap}
+@media(max-width:580px){.hdr{padding:0 12px}.tabs{padding:0 8px}.main{padding:16px 10px}.hero{padding:20px 16px}.hero h2{font-size:1.5rem}.ni{padding:16px 14px}.q-card{padding:16px}.res-card{padding:20px 14px}}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="hdr-brand">
+    <div class="hdr-logo">&#x1F9BA;</div>
+    <div class="hdr-t"><h1>A&amp;P Study Hub</h1><p>NSU &middot; Nursing Prep</p></div>
+  </div>
+  <div id="hdr-score"><div id="hdr-score-n">0/0</div><div class="hdr-score-l">Total Score</div></div>
+</div>
+
+<div class="tabs">
+  <button class="tab on" onclick="showView('home')">&#x1F3E0; Home</button>
+  <button class="tab" onclick="showView('notes')">&#x1F4D6; Notes</button>
+  <button class="tab" id="tp0" onclick="tryPart(0)">Part 1</button>
+  <button class="tab locked-tab" id="tp1" onclick="tryPart(1)">Part 2</button>
+  <button class="tab locked-tab" id="tp2" onclick="tryPart(2)">Part 3</button>
+  <button class="tab locked-tab" id="tp3" onclick="tryPart(3)">Part 4</button>
+  <button class="tab locked-tab" id="tp4" onclick="tryPart(4)">Part 5</button>
+  <button class="tab locked-tab" id="tp5" onclick="tryPart(5)">Part 6</button>
+  <button class="tab locked-tab" id="tp6" onclick="tryPart(6)">Part 7</button>
+  <button class="tab locked-tab" id="tp7" onclick="tryPart(7)">Part 8</button>
+  <button class="tab locked-tab" id="tp8" onclick="tryPart(8)">Part 9</button>
+  <button class="tab locked-tab" id="tp9" onclick="tryPart(9)">Part 10</button>
+</div>
+
+<div class="main">
+
+  <div class="view on" id="view-home">
+    <div class="hero">
+      <h2>You&#39;ve got this! &#x1F4AA;</h2>
+      <p>Complete A&amp;P study system for NSU nursing. Read each chapter&#39;s notes thoroughly, then take the quiz. You need <strong>8/10 (80%)</strong> to unlock the next part. Questions shuffle every attempt &mdash; no memorizing order!</p>
+      <div class="hero-pills">
+        <span class="hp">&#x1F4D6; 10 Deep-Dive Chapters</span>
+        <span class="hp">&#x1F5BC; Inline Diagrams</span>
+        <span class="hp">&#x1F9E0; 100 Questions</span>
+        <span class="hp">&#x1F500; Shuffled Every Attempt</span>
+        <span class="hp">&#x1F512; 80% Pass Gate</span>
+        <span class="hp">&#x23F1; 10-Min Cooldown on Fail</span>
+        <span class="hp">&#x274C; Answers Hidden on Fail</span>
+      </div>
+    </div>
+    <div class="sec-lbl">&#x1F4D6; Study Notes &mdash; Read First!</div>
+    <div class="hgrid" id="home-notes-grid"></div>
+    <div class="sec-lbl">&#x1F9E0; Practice Tests &mdash; Unlock in Order</div>
+    <div class="hgrid" id="home-test-grid"></div>
+  </div>
+
+  <div class="view" id="view-notes">
+    <div class="notes-hdr">
+      <h2>&#x1F4D6; Study Notes</h2>
+      <p>Read every chapter before attempting the quiz. Click any chapter to expand.</p>
+    </div>
+    <div id="chap-container"></div>
+  </div>
+
+  <div class="view" id="view-quiz">
+    <div class="quiz-hdr">
+      <h2 id="quiz-title">Part 1</h2>
+      <div class="prog-bg"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
+      <div class="prog-meta"><span id="prog-lbl">Question 1 of 10</span><span id="score-lbl">Score: 0</span></div>
+    </div>
+    <div class="q-card">
+      <div class="q-num" id="q-num">Q1 of 10</div>
+      <div class="q-txt" id="q-txt"></div>
+      <div class="opts" id="opts-wrap"></div>
+      <div class="fb" id="fb-box"></div>
+    </div>
+    <div class="qnav">
+      <button class="btn sec" onclick="showView('home')">&#x2190; Back</button>
+      <button class="btn" id="next-btn" onclick="nextQ()" disabled>Next &#x2192;</button>
+    </div>
+  </div>
+
+  <div class="view" id="view-results">
+    <div class="res-card">
+      <div class="res-emoji" id="res-emoji">&#x1F389;</div>
+      <div class="res-score" id="res-score">0/10</div>
+      <div class="res-title" id="res-title">Results</div>
+      <div class="res-msg" id="res-msg"></div>
+      <div class="res-bd">
+        <div class="bd"><div class="bd-n" id="bd-c" style="color:var(--correct)">0</div><div class="bd-l">Correct</div></div>
+        <div class="bd"><div class="bd-n" id="bd-w" style="color:var(--wrong)">0</div><div class="bd-l">Incorrect</div></div>
+        <div class="bd"><div class="bd-n" id="bd-p" style="color:var(--accent)">0%</div><div class="bd-l">Score</div></div>
+      </div>
+      <div class="review-list" id="review-list"></div>
+    </div>
+    <div id="res-actions"></div>
+  </div>
+
+  <div class="view" id="view-cooldown">
+    <div class="cd-card">
+      <div class="cd-emoji">&#x23F1;</div>
+      <h2>Study Time &mdash; Quiz Locked!</h2>
+      <p>You scored below 80%. The quiz is locked for <strong>10 minutes</strong>.<br>Use this time to study the notes carefully &mdash; then come back stronger!</p>
+      <div id="cd-timer">10:00</div>
+      <div class="cd-sub">Time remaining before you can retake</div>
+      <div class="cd-btns">
+        <button class="btn sec" onclick="showView('home')">&#x2190; Home</button>
+        <button class="btn" id="cd-study-btn">&#x1F4D6; Study Notes Now</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="view" id="view-locked">
+    <div class="ls-card">
+      <div class="ls-emoji">&#x1F512;</div>
+      <h2 id="ls-title">This Part is Locked</h2>
+      <p id="ls-msg">Complete the previous part with at least 80% to unlock this section.</p>
+      <div class="ls-btns">
+        <button class="btn sec" onclick="showView('home')">&#x2190; Home</button>
+        <button class="btn" id="ls-studybtn">&#x1F4D6; Study Notes</button>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /main -->
+<script>
+
+const PARTS = [
+{title:“Part 1: Cells & Chemistry”,color:”#4f8ef7”},
+{title:“Part 2: Tissues & Skin”,color:”#f7617a”},
+{title:“Part 3: Skeletal System”,color:”#a78bfa”},
+{title:“Part 4: Muscular System”,color:”#f5a623”},
+{title:“Part 5: Nervous System I”,color:”#38bdf8”},
+{title:“Part 6: NS II & Senses”,color:”#34d4b0”},
+{title:“Part 7: Cardiovascular”,color:”#f7617a”},
+{title:“Part 8: Respiratory & Blood”,color:”#86efac”},
+{title:“Part 9: Digestive & Urinary”,color:”#a78bfa”},
+{title:“Part 10: Endocrine & Repro”,color:”#fb923c”}
+];
+
+</script>
+<script>
+
+const QUESTIONS = [
+// PART 0 - Cells & Chemistry
+{p:0,q:“Which organelle produces most of the cell’s ATP via oxidative phosphorylation?”,o:[“Nucleus”,“Golgi apparatus”,“Mitochondria”,“Lysosome”],a:2},
+{p:0,q:“The Na+/K+-ATPase pump moves how many ions per ATP cycle?”,o:[“2 Na+ out, 3 K+ in”,“3 Na+ out, 2 K+ in”,“1 Na+ out, 1 K+ in”,“3 Na+ in, 2 K+ out”],a:1},
+{p:0,q:“A cell placed in a hypertonic solution will:”,o:[“Swell and lyse”,“Remain unchanged”,“Shrink as water exits (crenate)”,“Divide more rapidly”],a:2},
+{p:0,q:“Normal arterial blood pH is maintained between:”,o:[“7.0-7.2”,“7.5-7.7”,“7.35-7.45”,“6.8-7.0”],a:2},
+{p:0,q:“The fluid mosaic model describes the plasma membrane as:”,o:[“A rigid bilayer with fixed proteins”,“A dynamic phospholipid bilayer with mobile proteins and cholesterol”,“A single phospholipid layer”,“A protein-only shell”],a:1},
+{p:0,q:“Which organelle is the cell’s ‘post office’ - sorting and shipping proteins?”,o:[“Smooth ER”,“Lysosome”,“Golgi apparatus”,“Peroxisome”],a:2},
+{p:0,q:“Facilitated diffusion differs from simple diffusion because it:”,o:[“Requires ATP”,“Moves molecules against their gradient”,“Uses membrane proteins but requires no ATP”,“Only moves water”],a:2},
+{p:0,q:“Which macromolecule forms enzymes, receptors, antibodies, and structural components like collagen?”,o:[“Carbohydrates”,“Lipids”,“Nucleic acids”,“Proteins”],a:3},
+{p:0,q:“The rough endoplasmic reticulum primarily manufactures proteins destined for:”,o:[“The cytoplasm only”,“Secretion, membranes, or lysosomes”,“The nucleus”,“Mitochondrial use only”],a:1},
+{p:0,q:“Which cytoskeletal element forms the mitotic spindle and is the target of taxol (cancer drug)?”,o:[“Microfilaments (actin)”,“Intermediate filaments”,“Microtubules (tubulin)”,“Myosin filaments”],a:2},
+// PART 1 - Tissues & Skin
+{p:1,q:“Which epithelial type lines the alveoli and glomeruli, optimized for rapid diffusion?”,o:[“Stratified squamous”,“Simple cuboidal”,“Simple squamous”,“Pseudostratified columnar”],a:2},
+{p:1,q:“The epidermal layers from DEEP to SUPERFICIAL are:”,o:[“Corneum-Granulosum-Spinosum-Basale”,“Basale-Spinosum-Granulosum-Lucidum-Corneum”,“Spinosum-Basale-Corneum-Granulosum”,“Lucidum-Basale-Spinosum-Corneum”],a:1},
+{p:1,q:“Which skin cells produce melanin and transfer it to keratinocytes to shield DNA from UV?”,o:[“Langerhans cells”,“Merkel cells”,“Fibroblasts”,“Melanocytes”],a:3},
+{p:1,q:“A burn with blistering involving epidermis AND part of the dermis is classified as:”,o:[“First-degree”,“Second-degree (partial thickness)”,“Third-degree (full thickness)”,“Fourth-degree”],a:1},
+{p:1,q:“Eccrine sweat glands are innervated by which nerve fiber type - a key exception to the usual rule?”,o:[“Sympathetic adrenergic”,“Parasympathetic cholinergic”,“Sympathetic cholinergic”,“Somatic motor”],a:2},
+{p:1,q:“The stratum lucidum is found ONLY in:”,o:[“All body skin”,“Facial skin”,“Thick skin of palms and soles”,“The dermis”],a:2},
+{p:1,q:“Which connective tissue cell is the primary manufacturer of collagen and extracellular matrix?”,o:[“Macrophage”,“Mast cell”,“Plasma cell”,“Fibroblast”],a:3},
+{p:1,q:“Dense regular connective tissue in tendons primarily contains which collagen type?”,o:[“Type II”,“Type IV”,“Type I”,“Type III”],a:2},
+{p:1,q:“Vitamin D synthesis in the skin begins when UV-B converts which precursor molecule?”,o:[“Cholecalciferol”,“Calcitriol”,“7-dehydrocholesterol”,“25-hydroxyvitamin D”],a:2},
+{p:1,q:“Mast cells release which two substances during allergic and inflammatory responses?”,o:[“Collagen and elastin”,“Histamine and heparin”,“Fibrinogen and thrombin”,“Albumin and globulin”],a:1},
+// PART 2 - Skeletal
+{p:2,q:“Which bone cell resorbs bone by secreting HCl and cathepsin K?”,o:[“Osteoblast”,“Osteocyte”,“Osteoprogenitor cell”,“Osteoclast”],a:3},
+{p:2,q:“The epiphyseal plate (growth plate) consists of which tissue?”,o:[“Fibrocartilage”,“Dense regular CT”,“Hyaline cartilage”,“Elastic cartilage”],a:2},
+{p:2,q:“PTH raises blood calcium by doing ALL of the following EXCEPT:”,o:[“Activating osteoclasts”,“Increasing renal Ca2+ reabsorption”,“Directly depositing Ca2+ into bone”,“Activating vitamin D in the kidney”],a:2},
+{p:2,q:“Which structure anchors tendons and ligaments to bone via perforating (Sharpey’s) fibers?”,o:[“Endosteum”,“Articular cartilage”,“Epiphyseal line”,“Periosteum”],a:3},
+{p:2,q:“The knee joint is classified as which type of synovial joint?”,o:[“Ball-and-socket”,“Hinge”,“Pivot”,“Condyloid”],a:1},
+{p:2,q:“Spongy bone trabeculae are oriented along lines of mechanical stress - this principle is:”,o:[“Wolff’s Law”,“Starling’s Law”,“Fick’s Law”,“Boyle’s Law”],a:0},
+{p:2,q:“Which vitamin is required for collagen synthesis? Deficiency causes scurvy.”,o:[“Vitamin A”,“Vitamin D”,“Vitamin K”,“Vitamin C”],a:3},
+{p:2,q:“Red bone marrow (hematopoiesis) is found in adults primarily in:”,o:[“Medullary cavity of long bones”,“Articular cartilage”,“Spongy bone of flat and irregular bones”,“Periosteum”],a:2},
+{p:2,q:“Which bone cells are the most numerous, live in lacunae, and act as mechanosensors?”,o:[“Osteoblasts”,“Osteoclasts”,“Osteocytes”,“Osteoprogenitor cells”],a:2},
+{p:2,q:“Calcitonin (from thyroid C-cells) released when calcium is HIGH acts to:”,o:[“Stimulate osteoclasts and raise Ca2+”,“Inhibit osteoclasts and lower blood Ca2+”,“Activate vitamin D synthesis”,“Increase intestinal Ca2+ absorption”],a:1},
+// PART 3 - Muscular
+{p:3,q:“Which band of the sarcomere does NOT change length during muscle contraction?”,o:[“I band”,“H zone”,“A band”,“Sarcomere total length”],a:2},
+{p:3,q:“What triggers calcium release from the sarcoplasmic reticulum in skeletal muscle?”,o:[“Direct ATP hydrolysis”,“Voltage sensor DHPR mechanically opens RyR1 via T-tubule AP”,“ACh binding tropomyosin”,“Ca2+-induced Ca2+ release (like cardiac muscle)”],a:1},
+{p:3,q:“ATP is required at which step of the cross-bridge cycle?”,o:[“To form the cross-bridge”,“To initiate the power stroke”,“To release myosin from actin”,“To activate troponin”],a:2},
+{p:3,q:“Myasthenia gravis is an autoimmune disease where antibodies destroy:”,o:[“Voltage-gated Ca2+ channels”,“Nicotinic ACh receptors (nAChR) at the NMJ”,“Ryanodine receptors on the SR”,“SERCA pumps”],a:1},
+{p:3,q:“Type I (slow-twitch) muscle fibers are characterized by:”,o:[“White color, fast contraction, rapid fatigue”,“Red color, slow contraction, high fatigue resistance, aerobic metabolism”,“Fast contraction, high force, anaerobic glycolysis”,“Large motor unit size, low mitochondria”],a:1},
+{p:3,q:“In the sliding filament theory, which protein directly covers myosin-binding sites on actin at rest?”,o:[“Troponin T”,“Titin”,“Myosin”,“Tropomyosin”],a:3},
+{p:3,q:“The neurotransmitter at the neuromuscular junction is:”,o:[“Norepinephrine”,“Dopamine”,“Acetylcholine (ACh)”,“GABA”],a:2},
+{p:3,q:“Rigor mortis occurs because after death, without ATP, myosin:”,o:[“Cannot attach to actin”,“Cannot release from actin (locked in rigor state)”,“Degrades immediately”,“Cannot be re-cocked”],a:1},
+{p:3,q:“Which muscle protein acts as a molecular spring preventing over-stretching?”,o:[“Tropomyosin”,“Troponin C”,“Titin”,“Troponin I”],a:2},
+{p:3,q:“Botulinum toxin causes flaccid paralysis by:”,o:[“Blocking nicotinic ACh receptors”,“Inhibiting acetylcholinesterase (AChE)”,“Cleaving SNARE proteins, preventing ACh vesicle fusion”,“Blocking voltage-gated Ca2+ channels in muscle”],a:2},
+// PART 4 - Nervous System I
+{p:4,q:“The resting membrane potential of a typical neuron is approximately:”,o:[”-90 mV”,”-70 mV”,”-55 mV”,”+30 mV”],a:1},
+{p:4,q:“During the RISING PHASE of an action potential, which ion movement is responsible?”,o:[“K+ rushing out”,“Cl- rushing in”,“Na+ rushing in”,“Ca2+ rushing in”],a:2},
+{p:4,q:“During the ABSOLUTE refractory period, another action potential is:”,o:[“Possible with a stronger stimulus”,“Possible with a weaker stimulus”,“Impossible regardless of stimulus strength”,“Delayed by exactly 1 ms”],a:2},
+{p:4,q:“Saltatory conduction in myelinated axons means the action potential ‘jumps’ between:”,o:[“Dendrites”,“Synaptic clefts”,“Nodes of Ranvier”,“Axon terminals”],a:2},
+{p:4,q:“Which glial cell myelinates axons in the CENTRAL nervous system?”,o:[“Schwann cells”,“Astrocytes”,“Oligodendrocytes”,“Microglia”],a:2},
+{p:4,q:“The axon hillock initiates action potentials because it has:”,o:[“The most mitochondria”,“The highest density of voltage-gated Na+ channels”,“The largest diameter”,“The most myelin”],a:1},
+{p:4,q:“Broca’s area (speech production) is located in the:”,o:[“Left temporal lobe”,“Right parietal lobe”,“Left frontal lobe”,“Cerebellum”],a:2},
+{p:4,q:“Ipsilateral cerebellar lesions cause which characteristic disorder?”,o:[“Contralateral spastic paralysis”,“Contralateral sensory loss”,“Ipsilateral ataxia and intention tremor”,“Ipsilateral flaccid paralysis”],a:2},
+{p:4,q:“Which neurotransmitter receptor is an ionotropic ligand-gated Cl- channel causing IPSPs?”,o:[“NMDA receptor”,“AMPA receptor”,“GABA-A receptor”,“Nicotinic ACh receptor”],a:2},
+{p:4,q:“Wernicke’s aphasia from a temporal lobe lesion causes:”,o:[“Cannot produce speech but understands well”,“Fluent but meaningless speech with poor comprehension”,“Complete loss of all language”,“Only loss of reading ability”],a:1},
+// PART 5 - NS II / ANS / Senses
+{p:5,q:“Which cranial nerve controls most extraocular muscles AND pupil constriction?”,o:[“CN IV (Trochlear)”,“CN VI (Abducens)”,“CN II (Optic)”,“CN III (Oculomotor)”],a:3},
+{p:5,q:“Bell’s palsy affects CN VII. The key feature distinguishing it from a cortical stroke is:”,o:[“Only lower face is affected”,“The entire ipsilateral face droops including the forehead”,“Only the contralateral face is affected”,“Speech is lost”],a:1},
+{p:5,q:“Sympathetic postganglionic neurons release which neurotransmitter at most effectors?”,o:[“Acetylcholine (muscarinic)”,“Acetylcholine (nicotinic)”,“Norepinephrine”,“Dopamine”],a:2},
+{p:5,q:“Atropine (muscarinic antagonist) would cause which cardiovascular effect?”,o:[“Decreased heart rate (bradycardia)”,“Increased heart rate (tachycardia)”,“Decreased blood pressure only”,“No effect on the heart”],a:1},
+{p:5,q:“The optic chiasm partially decussates so that each optic tract carries visual information from:”,o:[“The ipsilateral eye only”,“The contralateral eye only”,“The contralateral visual field from BOTH eyes”,“Both entire visual fields”],a:2},
+{p:5,q:“High-frequency sounds (e.g., 20,000 Hz) are detected at which part of the basilar membrane?”,o:[“Apex (flexible)”,“Middle of the cochlea”,“Base (stiff, near oval window)”,“Helicotrema”],a:2},
+{p:5,q:“In the cranial nerve mnemonic, Facial nerve is CN:”,o:[“V”,“VI”,“VII”,“VIII”],a:2},
+{p:5,q:“Static equilibrium and linear acceleration are detected by hair cells in the:”,o:[“Semicircular canals”,“Organ of Corti”,“Utricle and saccule (maculae)”,“Cochlear apex”],a:2},
+{p:5,q:“The gag reflex uses which cranial nerves as afferent and efferent limbs?”,o:[“CN V (afferent) and VII (efferent)”,“CN IX (afferent) and X (efferent)”,“CN VII (afferent) and IX (efferent)”,“CN X (afferent) and XII (efferent)”],a:1},
+{p:5,q:“Propranolol (non-selective beta-blocker) is contraindicated in asthma because blocking B2 receptors causes:”,o:[“Bronchodilation”,“Tachycardia”,“Bronchoconstriction”,“Pulmonary hypertension”],a:2},
+// PART 6 - Cardiovascular
+{p:6,q:“The correct order of blood flow through the heart valves is:”,o:[“Mitral-Tricuspid-Aortic-Pulmonary”,“Pulmonary-Aortic-Tricuspid-Mitral”,“Tricuspid-Pulmonary-Mitral-Aortic”,“Aortic-Mitral-Tricuspid-Pulmonary”],a:2},
+{p:6,q:“The SA node (pacemaker) has an intrinsic rate of approximately:”,o:[“20-40 bpm”,“40-60 bpm”,“60-100 bpm”,“100-150 bpm”],a:2},
+{p:6,q:“The LAD (Left Anterior Descending artery) occlusion causes:”,o:[“Inferior MI (II, III, aVF)”,“Lateral MI (I, aVL, V5-V6)”,“Anterior MI (V1-V4) with septal damage”,“Right ventricular MI”],a:2},
+{p:6,q:“ST ELEVATION on an ECG indicates:”,o:[“Subendocardial ischemia (NSTEMI)”,“Transmural ischemia/injury (STEMI)”,“Ventricular hypertrophy only”,“Normal variant always”],a:1},
+{p:6,q:“Cardiac output (CO) is calculated as:”,o:[“Heart Rate divided by Stroke Volume”,“Stroke Volume divided by Heart Rate”,“Heart Rate x Stroke Volume”,“EDV x Ejection Fraction only”],a:2},
+{p:6,q:“The Frank-Starling mechanism states that increasing preload will:”,o:[“Decrease stroke volume”,“Increase stroke volume up to a limit”,“Have no effect on contractility”,“Decrease heart rate”],a:1},
+{p:6,q:“Beck’s triad of cardiac tamponade includes hypotension, JVD, and:”,o:[“Loud heart sounds”,“Muffled heart sounds”,“Tachycardia only”,“Pulsus alternans”],a:1},
+{p:6,q:“A prolonged QTc interval on ECG is dangerous because it predisposes to:”,o:[“Atrial fibrillation”,“Complete heart block”,“Torsades de Pointes (VF)”,“Sinus bradycardia”],a:2},
+{p:6,q:“Which vessels are the PRIMARY resistance vessels that regulate blood pressure?”,o:[“Elastic arteries (aorta)”,“Capillaries”,“Arterioles”,“Venules”],a:2},
+{p:6,q:“Cardiac troponin I and troponin T diagnose myocardial infarction because they are:”,o:[“Released from all muscle during exercise”,“Elevated only in kidney disease”,“Highly specific biomarkers released from damaged cardiac muscle cells”,“Found only in skeletal muscle”],a:2},
+// PART 7 - Respiratory & Blood
+{p:7,q:“Which lung volumes CANNOT be measured by standard spirometry alone?”,o:[“Tidal volume and IRV”,“Vital capacity”,“FEV1”,“Residual volume and TLC”],a:3},
+{p:7,q:“A FEV1/FVC ratio BELOW 0.70 indicates which pattern of lung disease?”,o:[“Restrictive (e.g., pulmonary fibrosis)”,“Normal lung function”,“Obstructive (e.g., COPD, asthma)”,“Mixed pattern only”],a:2},
+{p:7,q:“Surfactant prevents alveolar collapse by:”,o:[“Increasing surface tension equally in all alveoli”,“Decreasing surface tension more in smaller alveoli”,“Increasing lung compliance by stiffening alveoli”,“Providing O2 directly to alveolar cells”],a:1},
+{p:7,q:“Carbon monoxide (CO) binds hemoglobin with approximately what affinity compared to O2?”,o:[“Same affinity”,“2x greater affinity”,“20x greater affinity”,“240x greater affinity”],a:3},
+{p:7,q:“The PRIMARY stimulus for normal ventilation is:”,o:[“Low PO2 detected by carotid bodies”,“High PCO2 (and resulting low pH) detected by central chemoreceptors”,“Low blood pressure”,“High blood glucose”],a:1},
+{p:7,q:“Heparin-Induced Thrombocytopenia Type II (HIT) despite low platelet counts causes:”,o:[“Increased bleeding risk only”,“Paradoxical thrombosis (clotting)”,“No clinical effect”,“Hemolytic anemia”],a:1},
+{p:7,q:“The right mainstem bronchus is wider, shorter, more vertical - aspirated objects go to the:”,o:[“Left lung”,“Right lung”,“Both equally”,“Trachea only”],a:1},
+{p:7,q:“Neutrophils are the FIRST responders to bacterial infection and their count is elevated in:”,o:[“Viral infections and allergies”,“Bacterial infections, MI, and corticosteroid use”,“Parasitic infections only”,“Autoimmune disease only”],a:1},
+{p:7,q:“Aspirin’s antiplatelet effect works by:”,o:[“Blocking GPIIb/IIIa receptors on platelets”,“Irreversibly inhibiting COX-1 reducing TXA2 production”,“Blocking P2Y12 ADP receptors”,“Activating antithrombin III”],a:1},
+{p:7,q:“Warfarin inhibits which enzyme, preventing activation of clotting factors II, VII, IX, X?”,o:[“Thrombin directly”,“Vitamin K epoxide reductase”,“Factor Xa directly”,“Antithrombin III”],a:1},
+// PART 8 - Digestive & Urinary
+{p:8,q:“Which cells in the stomach produce HCl AND intrinsic factor?”,o:[“Chief cells”,“G cells”,“Parietal cells”,“Mucous neck cells”],a:2},
+{p:8,q:“Vitamin B12 absorption in the terminal ileum requires which substance?”,o:[“Pepsin”,“Gastrin”,“Intrinsic factor”,“Secretin”],a:2},
+{p:8,q:“Secretin is released by duodenal S-cells in response to acid and stimulates the pancreas to secrete:”,o:[“Digestive enzymes (amylase, lipase)”,“Bicarbonate-rich fluid to neutralize acid”,“Insulin”,“Glucagon”],a:1},
+{p:8,q:“The thick ascending limb of the Loop of Henle is the primary site of action for which diuretics?”,o:[“Thiazides (hydrochlorothiazide)”,“Loop diuretics (furosemide)”,“K+-sparing (spironolactone)”,“Osmotic diuretics (mannitol)”],a:1},
+{p:8,q:“ADH (vasopressin) promotes water reabsorption in the collecting duct by inserting which aquaporin?”,o:[“AQP1”,“AQP2”,“AQP3”,“AQP4”],a:1},
+{p:8,q:“What does ANGIOTENSIN II directly cause?”,o:[“Vasodilation and diuresis”,“Vasoconstriction and aldosterone release”,“Decreased blood pressure”,“Direct renin inhibition”],a:1},
+{p:8,q:“SGLT-2 inhibitors (empagliflozin) lower blood glucose by blocking glucose reabsorption in the:”,o:[“Loop of Henle”,“Distal convoluted tubule”,“Proximal convoluted tubule”,“Collecting duct”],a:2},
+{p:8,q:“Acute pancreatitis causes elevated lipase and amylase because of:”,o:[“Liver cell destruction”,“Premature activation of pancreatic zymogens within the pancreas (autodigestion)”,“Kidney failure”,“Intestinal bacterial overgrowth”],a:1},
+{p:8,q:“Aldosterone acts on the collecting duct to:”,o:[“Increase K+ reabsorption and Na+ secretion”,“Decrease Na+ reabsorption”,“Increase Na+ reabsorption and K+ secretion”,“Increase water secretion only”],a:2},
+{p:8,q:“The enterohepatic circulation recycles approximately what percentage of bile salts?”,o:[“10-20%”,“50%”,“95%”,“100%”],a:2},
+// PART 9 - Endocrine & Reproductive
+{p:9,q:“Water-soluble hormones (like insulin) act via membrane receptors because they:”,o:[“Are too large to be useful inside cells”,“Cannot cross the hydrophobic lipid bilayer”,“Are degraded inside cells”,“Bind DNA directly”],a:1},
+{p:9,q:“The anterior pituitary hormone ACTH is derived from which precursor that also produces MSH?”,o:[“Pre-proinsulin”,“Proopiomelanocortin (POMC)”,“Proglucagon”,“Pre-PTH”],a:1},
+{p:9,q:“Continuous GnRH administration (instead of pulsatile) leads to:”,o:[“Increased LH and FSH”,“Downregulation of GnRH receptors and decreased LH and FSH”,“Increased testosterone only”,“No effect on gonadotropins”],a:1},
+{p:9,q:“Cushing’s syndrome signs result from excess:”,o:[“Aldosterone”,“Growth hormone”,“Cortisol”,“Thyroid hormone”],a:2},
+{p:9,q:“Prolactin secretion is under TONIC INHIBITION by:”,o:[“Somatostatin”,“TRH”,“Dopamine from the hypothalamus”,“CRH”],a:2},
+{p:9,q:“The mid-cycle LH surge that triggers ovulation is caused by:”,o:[“Negative feedback from high progesterone”,“Positive feedback from peak estrogen levels”,“Rising FSH levels”,“Low GnRH pulse frequency”],a:1},
+{p:9,q:“During the LUTEAL phase, the dominant hormone secreted by the corpus luteum is:”,o:[“Estrogen only”,“FSH”,“Progesterone (with some estrogen)”,“LH”],a:2},
+{p:9,q:“In the adrenal cortex, the zona FASCICULATA produces:”,o:[“Testosterone”,“Cortisol”,“DHEA and androgens”,“Epinephrine”],a:1},
+{p:9,q:“Type 1 Diabetes Mellitus results from autoimmune destruction of pancreatic:”,o:[“Alpha cells (glucagon)”,“Delta cells (somatostatin)”,“Beta cells (insulin)”,“PP cells”],a:2},
+{p:9,q:“Human chorionic gonadotropin (hCG) produced by the early embryo maintains the corpus luteum - this is the basis of:”,o:[“Ovulation predictor kits”,“Pregnancy tests”,“Contraceptive pills”,“Fertility drugs (FSH injections)”],a:1}
+];
+
+</script>
+<script>
+
+const CHAPTERS = [
+{id:0,title:“Chapter 1: Cells & Basic Chemistry”,sub:“Organelles \xb7 Membrane transport \xb7 pH \xb7 Macromolecules”,icon:”\u{1F9EC}”,color:”#4f8ef7”,
+srcs:[[“OpenStax A&P Ch. 2 & 3”,“https://openstax.org/books/anatomy-and-physiology/pages/2-introduction”],[“Khan Academy Cell Biology”,“https://www.khanacademy.org/science/ap-biology/cell-structure-and-function”]],
+body:`<h4>Cell Theory</h4>
+
+<p>Three foundational principles: (1) All living organisms are made of cells. (2) The cell is the basic structural and functional unit of life. (3) All cells arise from pre-existing cells. Every organ system traces back to cellular structure and function.</p>
+<h4>Key Organelles</h4>
+<figure class="ni-img"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Animal_cell_structure_en.svg/600px-Animal_cell_structure_en.svg.png" alt="Animal cell diagram" loading="lazy"/><figcaption>Complete labeled animal cell &mdash; connect each organelle's structure to its clinical significance.</figcaption></figure>
+<h5>Mitochondria</h5>
+<p>Double-membraned. Inner membrane folded into <b>cristae</b> (&uarr; surface area). Matrix: Krebs cycle. Cristae: ETC + ATP synthase &rarr; ~32 ATP per glucose. High-energy tissues (cardiac muscle, neurons) have thousands per cell. Contain their own DNA (maternally inherited).</p>
+<h5>Rough ER & Golgi</h5>
+<p><b>Rough ER</b>: ribosomes on surface; co-translational protein folding; sends vesicles to Golgi. <b>Golgi</b>: stacked cisternae; sorts, modifies, packages proteins for secretion, membrane insertion, or lysosome targeting. The "cell's post office."</p>
+<h5>Lysosomes</h5>
+<p>Membrane-bound vesicles with ~60 acid hydrolases at pH ~5. Perform autophagy (recycle organelles), heterophagy (digest phagocytosed material). <b>Lysosomal storage diseases</b> (Tay-Sachs, Gaucher): enzyme deficiency &rarr; toxic substrate buildup &rarr; neurodegeneration.</p>
+<h5>Cytoskeleton</h5>
+<ul><li><b>Microfilaments (actin, 7 nm)</b>: cell shape, motility, muscle contraction (thin filaments)</li>
+<li><b>Intermediate filaments (8-10 nm)</b>: tensile strength; keratin (epithelial), neurofilaments (neurons), lamins (nuclear envelope)</li>
+<li><b>Microtubules (tubulin, 25 nm)</b>: mitotic spindle, cilia/flagella. Taxol stabilizes them (halts cancer cell division). Colchicine inhibits polymerization (gout)</li></ul>
+<h4>Plasma Membrane & Transport</h4>
+<figure class="ni-img"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Scheme_facilitated_diffusion_in_cell_membrane-en.svg/600px-Scheme_facilitated_diffusion_in_cell_membrane-en.svg.png" alt="Membrane transport" loading="lazy"/><figcaption>Membrane transport types &mdash; passive (no energy) vs. active (ATP required).</figcaption></figure>
+<div class="nt-box star"><b>&#11088; Tonicity for Nursing:</b> Isotonic (0.9% NaCl, LR): no net water shift; use for volume replacement. Hypertonic (3% NaCl): water drawn OUT of cells; treat severe hyponatremia/cerebral edema carefully. Hypotonic (0.45% NaCl, D5W after metabolism): water moves INTO cells; risk of hemolysis if given too rapidly. ALWAYS verify solution tonicity before infusing!</div>
+<table class="nt-tbl"><tr><th>Transport</th><th>Energy?</th><th>Clinical Examples</th></tr>
+<tr><td>Simple diffusion</td><td>No</td><td>O2, CO2, ethanol, steroids</td></tr>
+<tr><td>Facilitated diffusion</td><td>No (protein channel)</td><td>Glucose (GLUT1-5), ions via channels</td></tr>
+<tr><td>Osmosis</td><td>No</td><td>RBCs in IV fluids, kidney water reabsorption (AQP2)</td></tr>
+<tr><td>Primary active (Na+/K+-ATPase)</td><td>Yes (ATP)</td><td>3 Na+ out, 2 K+ in; resting membrane potential; H+/K+-ATPase (stomach PPIs)</td></tr>
+<tr><td>Secondary active (cotransport)</td><td>Indirect (Na+ gradient)</td><td>SGLT-2 (kidney glucose; empagliflozin blocks it); SGLT-1 (gut absorption)</td></tr>
+<tr><td>Receptor-mediated endocytosis</td><td>Yes</td><td>LDL uptake; insulin receptor internalization</td></tr></table>
+<div class="mnem-box"><div class="mnem-lbl">&#x1F9E0; Na+/K+ Pump</div><div class="mnem-t">"Three Sodium OUT, Two Potassium IN"</div><div class="mnem-x">Na has 3 letters &rarr; 3 Na+ pumped OUT. K has 1 letter but 2 K+ pumped IN. 1 ATP consumed. Makes inside of cell electronegative. Creates gradients driving secondary active transport throughout the body.</div></div>
+<h4>Acid-Base Chemistry</h4>
+<ul><li><b>Blood pH: 7.35-7.45</b> (slightly alkaline). Acidosis &lt;7.35: protein denaturation, hyperkalemia, arrhythmias. Alkalosis &gt;7.45: &darr; ionized Ca2+ &rarr; tetany (Chvostek's + Trousseau's signs).</li>
+<li><b>Buffers</b>: bicarbonate system (HCO3-/CO2), proteins (hemoglobin), phosphate. Lungs (CO2 regulation, minutes) and kidneys (HCO3- regulation, days) maintain pH.</li>
+<li><b>Four macromolecules</b>: Carbohydrates (fuel, structure); Proteins (enzymes, receptors, antibodies - most drug targets); Lipids (membranes, steroid hormones, 9 kcal/g energy storage); Nucleic acids (DNA stores, RNA expresses, ATP is energy currency).</li></ul>`},
+
+{id:1,title:“Chapter 2: Tissues & Integumentary System”,sub:“4 tissue types \xb7 Skin layers \xb7 Burns \xb7 Appendages”,icon:”\u{1F9EB}”,color:”#f7617a”,
+srcs:[[“OpenStax A&P Ch. 4 & 5”,“https://openstax.org/books/anatomy-and-physiology/pages/4-introduction”],[“AAD Burns Guide”,“https://www.aad.org/public/everyday-care/injured-skin/burns/treat-minor-burns”]],
+body:`<h4>Four Primary Tissue Types</h4>
+
+<div class="mnem-box"><div class="mnem-lbl">&#x1F9E0; Tissue Types</div><div class="mnem-t">"Every Cat Must Nap" &rarr; Epithelial &middot; Connective &middot; Muscle &middot; Nervous</div><div class="mnem-x">Only four tissue types exist in the entire human body. Every organ is built from combinations of these four. Master them all before trying to understand organ systems.</div></div>
+<h5>Epithelial Tissue</h5>
+<figure class="ni-img"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Illu_epithelium.jpg/600px-Illu_epithelium.jpg" alt="Epithelial types" loading="lazy"/><figcaption>Epithelial classification &mdash; name = layers + cell shape. Memorize location and function for each type.</figcaption></figure>
+<p>Characteristics: <b>avascular</b> (nourished by diffusion from underlying CT); tightly packed cells; sits on <b>basement membrane</b>; high regenerative capacity. Named by layers (simple=1, stratified=multiple) and cell shape (squamous=flat, cuboidal=cube, columnar=tall).</p>
+<table class="nt-tbl"><tr><th>Type</th><th>Location</th><th>Function</th></tr>
+<tr><td>Simple squamous</td><td>Alveoli, glomeruli, capillary walls, mesothelium</td><td>Diffusion, filtration, serous secretion</td></tr>
+<tr><td>Simple cuboidal</td><td>Kidney tubules, thyroid follicles, small glands</td><td>Secretion, absorption</td></tr>
+<tr><td>Simple columnar</td><td>GI tract (stomach to colon), uterus</td><td>Absorption (microvilli), mucus secretion (goblet cells)</td></tr>
+<tr><td>Pseudostratified ciliated columnar</td><td>Trachea, bronchi</td><td>Mucociliary escalator - moves mucus + particles toward pharynx</td></tr>
+<tr><td>Stratified squamous keratinized</td><td>Epidermis</td><td>Protection vs abrasion, UV, desiccation, microbes</td></tr>
+<tr><td>Transitional (urothelium)</td><td>Urinary bladder, ureters</td><td>Stretches/recoils; impermeable to urine</td></tr></table>
+<h5>Connective Tissue</h5>
+<p>Most abundant tissue. Always vascularized (except cartilage, cornea, lens). Key cells: <b>Fibroblasts</b> (produce collagen + ECM); <b>Macrophages</b> (phagocytose, present antigens); <b>Mast cells</b> (release histamine + heparin &rarr; allergy/anaphylaxis); <b>Plasma cells</b> (secrete antibodies). <b>Collagen (Type I)</b>: tensile strength in tendons, ligaments, bone, skin. Vitamin C required for synthesis &rarr; scurvy: bleeding gums, poor wound healing.</p>
+<h4>The Integumentary System</h4>
+<figure class="ni-img"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Blausen_0783_SkinLayers.png/600px-Blausen_0783_SkinLayers.png" alt="Skin layers" loading="lazy"/><figcaption>Skin cross-section &mdash; memorize all layers, cell types, and clinical relevance of each.</figcaption></figure>
+<h5>Epidermal Layers Deep to Superficial</h5>
+<div class="mnem-box"><div class="mnem-lbl">&#x1F9E0; Epidermal Layers</div><div class="mnem-t">"Baby Sally Grows Lovely Cornrows" &rarr; Basale &middot; Spinosum &middot; Granulosum &middot; Lucidum &middot; Corneum</div><div class="mnem-x">Lucidum exists ONLY in thick skin (palms/soles). New cells born in Basale, pushed up over ~28-40 days, shed from Corneum. Accelerated in psoriasis &rarr; thick scaly plaques.</div></div>
+<ul>
+<li><b>Stratum basale</b>: mitotically active keratinocyte stem cells; <b>melanocytes</b> (synthesize melanin; transfer to keratinocytes; all races equal numbers, difference = melanin production); <b>Merkel cells</b> (slowly-adapting mechanoreceptors)</li>
+<li><b>Stratum spinosum</b>: 8-10 layers; desmosomes; <b>Langerhans cells</b> (dendritic APC &rarr; contact dermatitis, skin immune surveillance)</li>
+<li><b>Stratum granulosum</b>: cells begin dying; lamellar granules release lipid &rarr; waterproof barrier (disrupted in eczema &rarr; increased TEWL)</li>
+<li><b>Stratum lucidum</b>: ONLY in thick skin (palms, soles); dead translucent cells; additional mechanical protection</li>
+<li><b>Stratum corneum</b>: 15-30 layers dead keratinized corneocytes; primary physical/chemical barrier; sheds ~30,000-40,000 cells/hr</li></ul>
+<h5>Dermis & Appendages</h5>
+<ul>
+<li><b>Papillary dermis</b>: loose areolar CT; highly vascular; dermal papillae (fingerprints); Meissner's corpuscles (light touch)</li>
+<li><b>Reticular dermis</b>: dense irregular CT; hair follicles, sebaceous glands, sweat glands; Pacinian corpuscles (deep pressure/vibration)</li>
+<li><b>Eccrine sweat glands</b>: entire body; innervated by <b>sympathetic CHOLINERGIC</b> fibers (KEY EXCEPTION - use ACh not NE!); primary thermoregulatory mechanism. Atropine (muscarinic blocker) &rarr; anhidrosis &rarr; hyperthermia risk</li></ul>
+<div class="nt-box warn"><b>&#x1F6A8; Burns - Must Know for Nursing:</b> 1st degree (superficial): epidermis only; red, dry, painful; heals 3-5 days. 2nd degree (partial thickness): epidermis + part of dermis; blistering, wet, very painful; may need grafting. 3rd degree (full thickness): all layers; leathery, PAINLESS (nerve destruction); requires grafting; contracture risk. Rule of Nines: Head+neck=9%, each arm=9%, chest=9%, abdomen=9%, each back half=9%, each thigh=9%, each lower leg+foot=9%, perineum=1%. Parkland formula: 4 mL x kg x %BSA burned of Lactated Ringer's over 24 hrs (1/2 in first 8 hrs from time of burn).</div>`},
+
+{id:2,title:“Chapter 3: Skeletal System”,sub:“Bone anatomy \xb7 4 bone cells \xb7 Calcium regulation \xb7 Joints”,icon:”\u{1F9B4}”,color:”#a78bfa”,
+srcs:[[“OpenStax A&P Ch. 6 & 9”,“https://openstax.org/books/anatomy-and-physiology/pages/6-introduction”],[“NIH Osteoporosis”,“https://www.niams.nih.gov/health-topics/osteoporosis”]],
+body:`<h4>Long Bone Anatomy</h4>
+
+<figure class="ni-img"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Structure_of_a_Long_Bone.png/500px-Structure_of_a_Long_Bone.png" alt="Long bone anatomy" loading="lazy"/><figcaption>Long bone anatomy &mdash; know each region for fracture classification, epiphyseal plate injuries, and bone marrow biopsy sites.</figcaption></figure>
+<ul>
+<li><b>Diaphysis</b>: cylindrical shaft; compact bone surrounding medullary cavity (yellow marrow in adults); osteons = concentric lamellae + central canals + osteocytes in lacunae</li>
+<li><b>Epiphysis</b>: expanded ends; spongy bone + red marrow; articular cartilage (hyaline, avascular, aneural; cannot regenerate &rarr; OA)</li>
+<li><b>Epiphyseal plate</b>: hyaline cartilage; chondrocytes proliferate &rarr; ossify; closed by estrogen surge at puberty end. Salter-Harris fractures involve growth plate</li>
+<li><b>Periosteum</b>: dense fibrous CT; inner osteogenic layer; anchors tendons via <b>Sharpey's fibers</b>; richly innervated (periosteal pain in fractures)</li></ul>
+<h4>Four Bone Cells</h4>
+<table class="nt-tbl"><tr><th>Cell</th><th>Origin</th><th>Function</th><th>Drug Target</th></tr>
+<tr><td>Osteoprogenitor</td><td>Mesenchymal stem cells</td><td>Mitotically active; differentiates to osteoblasts; in periosteum + endosteum</td><td>&mdash;</td></tr>
+<tr><td>Osteoblast</td><td>Osteoprogenitor</td><td>Synthesize osteoid (Type I collagen); direct mineralization; become osteocytes when surrounded</td><td>Elevated ALP; teriparatide (PTH analog stimulates osteoblasts)</td></tr>
+<tr><td>Osteocyte</td><td>Trapped osteoblast</td><td>Maintain matrix; mechanosensors; most numerous bone cell; communicate via canaliculi</td><td>Romosozumab (blocks sclerostin &rarr; &uarr; osteoblast activity)</td></tr>
+<tr><td>Osteoclast</td><td>Fused monocytes</td><td>Bone RESORPTION: ruffled border + HCl (dissolves hydroxyapatite) + cathepsin K (degrades collagen); creates Howship's lacunae</td><td>Bisphosphonates (alendronate); denosumab (anti-RANKL Ab); estrogen inhibits RANKL</td></tr></table>
+<div class="nt-box star"><b>&#11088; Calcium Regulation:</b> PTH (parathyroid) released when Ca2+ LOW &rarr; (1) activates osteoclasts; (2) &uarr; renal Ca2+ reabsorption; (3) &darr; renal PO4 reabsorption (phosphaturia); (4) activates 1&alpha;-hydroxylase &rarr; calcitriol &rarr; &uarr; intestinal Ca2+ absorption. Calcitonin (thyroid C-cells) when Ca2+ HIGH &rarr; &darr; osteoclasts + &uarr; renal Ca2+ excretion. Hypocalcemia signs: Chvostek's (tap CN VII &rarr; facial twitch) + Trousseau's (BP cuff inflated &rarr; carpopedal spasm). Hypercalcemia: "Stones, Bones, Groans, Psychic Moans."</b></div>
+<div class="mnem-box"><div class="mnem-lbl">&#x1F9E0; PTH vs Calcitonin</div><div class="mnem-t">"PTH Pulls calcium out &mdash; calciTONin TONes it down"</div><div class="mnem-x">PTH raises blood Ca2+ (acts when level is LOW). Calcitonin lowers blood Ca2+ (acts when level is HIGH). Wolff's Law: trabeculae align along lines of mechanical stress &rarr; exercise protects bone density.</div></div>
+<h4>Synovial Joints</h4>
+<figure class="ni-img"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Joint.png/500px-Joint.png" alt="Synovial joint" loading="lazy"/><figcaption>Synovial joint anatomy &mdash; the most clinically relevant joint type (knees, hips, shoulders).</figcaption></figure>
+<table class="nt-tbl"><tr><th>Type</th><th>Movement</th><th>Examples</th></tr>
+<tr><td>Ball-and-socket</td><td>Multiaxial (most mobile)</td><td>Shoulder (glenohumeral), hip (coxal)</td></tr>
+<tr><td>Hinge</td><td>Uniaxial (flex/extend)</td><td>Elbow, knee, ankle, IP joints</td></tr>
+<tr><td>Pivot</td><td>Uniaxial (rotation)</td><td>Atlantoaxial (C1-C2), proximal radioulnar</td></tr>
+<tr><td>Condyloid</td><td>Biaxial</td><td>Wrist (radiocarpal), MCP knuckles</td></tr>
+<tr><td>Saddle</td><td>Biaxial</td><td>Thumb CMC (enables precision grip)</td></tr></table>
+<div class="nt-box tip"><b>&#x1F4A1; Osteoporosis Nursing:</b> T-score &le; -2.5 on DXA. Fragility fractures: vertebral compression (kyphosis), distal radius (Colles'), femoral neck (hip - 20-30% mortality at 1 year). Treatment: alendronate (weekly PO; sit upright 30 min &rarr; prevent esophagitis; hold if CrCl &lt;35); denosumab (SubQ biannually); teriparatide (anabolic). Prevention: 1200 mg Ca2+/day + 800-1000 IU Vit D3 + weight-bearing exercise.</div>`},
+
+{id:3,title:“Chapter 4: Muscular System”,sub:“Sarcomere \xb7 Sliding filament \xb7 NMJ pharmacology \xb7 Fiber types”,icon:”\u{1F4AA}”,color:”#f5a623”,
+srcs:[[“OpenStax A&P Ch. 10”,“https://openstax.org/books/anatomy-and-physiology/pages/10-introduction”],[“NCBI Sliding Filament Theory”,“https://www.ncbi.nlm.nih.gov/books/NBK9961/”]],
+body:`<h4>Sarcomere Structure</h4>
+
+<figure class="ni-img"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Sarcomere.svg/600px-Sarcomere.svg.png" alt="Sarcomere diagram" loading="lazy"/><figcaption>Sarcomere &mdash; the fundamental contractile unit. Know every band, line, and zone and what changes during contraction.</figcaption></figure>
+<ul>
+<li><b>Z lines (Z discs)</b>: sarcomere boundaries; anchor thin (actin) filaments; move CLOSER TOGETHER during contraction</li>
+<li><b>A band</b>: full length of thick (myosin) filaments; dark; <b>does NOT change length</b> during contraction (myosin length is constant)</li>
+<li><b>I band</b>: actin only (no myosin overlap); light; <b>shortens</b> during contraction</li>
+<li><b>H zone</b>: center of A band; myosin only; <b>shortens</b> as actin fills in</li>
+<li><b>Tropomyosin</b>: blocks myosin-binding sites on actin at rest</li>
+<li><b>Troponin complex</b>: TnT (anchors tropomyosin); TnI (inhibits actin-myosin); <b>TnC binds Ca2+</b> &rarr; exposes binding sites. Cardiac TnI and TnT = highly specific MI biomarkers!</li>
+<li><b>Titin</b>: molecular spring (~3.7 MDa); Z&rarr;M line; prevents over-stretch; passive elastic tension. Titin mutations &rarr; dilated cardiomyopathy</li></ul>
+<div class="mnem-box"><div class="mnem-lbl">&#x1F9E0; What Shortens During Contraction?</div><div class="mnem-t">"I Have Shorter Distances" &rarr; I band &middot; H zone &middot; Sarcomere Distance</div><div class="mnem-x">A band does NOT change (myosin length is constant). Z lines move closer. I band and H zone BOTH shorten as thin filaments slide toward the M line.</div></div>
+<h4>Sliding Filament Mechanism</h4>
+<figure class="ni-img"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Neuromuscular_junction.svg/600px-Neuromuscular_junction.svg.png" alt="Neuromuscular junction" loading="lazy"/><figcaption>Neuromuscular junction &mdash; site of action for many critical drugs and toxins nurses must know.</figcaption></figure>
+<p><b>AP &rarr; Ca2+ entry &rarr; SNARE proteins &rarr; ACh exocytosis &rarr; nAChR depolarizes end plate &rarr; AP propagates &rarr; T-tubule &rarr; DHPR &rarr; RyR1 opens &rarr; Ca2+ floods sarcoplasm &rarr; Ca2+ binds TnC &rarr; tropomyosin shifts &rarr; myosin binds actin &rarr; power stroke (Pi released) &rarr; ADP released (rigor) &rarr; ATP binds myosin &rarr; myosin RELEASES actin &rarr; ATP hydrolysis &rarr; myosin re-cocked &rarr; cycle repeats while Ca2+ + ATP available.</b></p>
+<p><b>Relaxation</b>: AChE hydrolyzes ACh &rarr; SERCA pump actively returns Ca2+ to SR &rarr; tropomyosin re-covers actin.</p>
+<div class="nt-box star"><b>&#11088; NMJ Pharmacology - Critical for Nursing!</b> Succinylcholine (depolarizing NMB): sustained depolarization &rarr; fasciculations &rarr; flaccid paralysis; metabolized by pseudocholinesterase; used for RSI; triggers MALIGNANT HYPERTHERMIA (&uarr;&uarr; SR Ca2+ release &rarr; severe hyperthermia, rigidity, rhabdomyolysis; treat with IV dantrolene - blocks RyR1). Rocuronium/vecuronium (non-depolarizing NMB): competitive nAChR antagonists; reversed by sugammadex. Botulinum toxin: cleaves SNARE proteins &rarr; no ACh release &rarr; flaccid paralysis. Organophosphate poisoning: irreversible AChE inhibition &rarr; ACh accumulates &rarr; SLUDGE (Salivation, Lacrimation, Urination, Defecation, GI upset, Emesis) &rarr; treat with atropine + pralidoxime (2-PAM). Myasthenia Gravis: anti-nAChR antibodies &rarr; treat with pyridostigmine (AChE inhibitor).</div>
+<table class="nt-tbl"><tr><th>Feature</th><th>Type I (Slow Oxidative)</th><th>Type IIa (Fast Oxidative)</th><th>Type IIx (Fast Glycolytic)</th></tr>
+<tr><td>Color</td><td>Red (myoglobin-rich)</td><td>Red-pink</td><td>White (little myoglobin)</td></tr>
+<tr><td>Metabolism</td><td>Aerobic</td><td>Both aerobic + anaerobic</td><td>Anaerobic glycolysis</td></tr>
+<tr><td>Fatigue resistance</td><td>High (hours)</td><td>Moderate</td><td>Low (seconds)</td></tr>
+<tr><td>Best for</td><td>Posture, marathon</td><td>Middle distance, team sports</td><td>Sprinting, powerlifting</td></tr></table>`},
+
+{id:4,title:“Chapter 5: Nervous System I - Neurons & CNS”,sub:“Neuron anatomy \xb7 Glia \xb7 Action potentials \xb7 Synaptic transmission \xb7 Brain regions”,icon:”\u{1F9E0}”,color:”#38bdf8”,
+srcs:[[“OpenStax A&P Ch. 12 & 13”,“https://openstax.org/books/anatomy-and-physiology/pages/12-introduction”],[“Neuroscience Online (UTHealth)”,“https://nba.uth.tmc.edu/neuroscience/”]],
+body:`<h4>Neuron Structure & Glia</h4>
+
+<figure class="ni-img"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Neuron.svg/600px-Neuron.svg.png" alt="Neuron structure" loading="lazy"/><figcaption>Multipolar neuron (most common CNS type) &mdash; trace signal: dendrites &rarr; soma &rarr; axon hillock &rarr; axon &rarr; terminals.</figcaption></figure>
+<table class="nt-tbl"><tr><th>Glial Cell</th><th>Location</th><th>Key Functions</th></tr>
+<tr><td>Astrocytes</td><td>CNS</td><td>Most numerous glia; blood-brain barrier (envelop capillaries); regulate extracellular K+ and glutamate; glial scar formation after injury</td></tr>
+<tr><td>Oligodendrocytes</td><td>CNS</td><td>Myelinate CNS axons; 1 cell myelinates up to 60 axon segments simultaneously; target of destruction in MS</td></tr>
+<tr><td>Microglia</td><td>CNS</td><td>Resident macrophages (yolk sac origin); phagocytose debris and pathogens; release TNF/IL-1; activated in neurodegeneration</td></tr>
+<tr><td>Schwann cells</td><td>PNS</td><td>Myelinate PNS axons (1 cell per internode); critical for PNS regeneration (Bands of Bungner); Guillain-Barre = acute PNS demyelination</td></tr>
+<tr><td>Ependymal cells</td><td>CNS ventricles</td><td>Ciliated; circulate CSF; choroid plexus cells produce CSF (~500 mL/day; 120-150 mL total; turns over 3-4x/day)</td></tr></table>
+<h4>Action Potential</h4>
+<figure class="ni-img"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Action_potential.svg/600px-Action_potential.svg.png" alt="Action potential phases" loading="lazy"/><figcaption>Action potential phases &mdash; master each voltage and the responsible ion channels for exams and clinical applications.</figcaption></figure>
+<p>Resting membrane potential &asymp; <b>-70 mV</b> (inside negative). Maintained by: Na+/K+-ATPase + high resting K+ permeability (K+ leaks out &rarr; dominant contributor to negativity) + large impermeable intracellular anions.</p>
+<div class="mnem-box"><div class="mnem-lbl">&#x1F9E0; Action Potential Phases</div><div class="mnem-t">"Resting Dogs Rarely Howl Persistently" &rarr; Resting &middot; Depolarization &middot; Repolarization &middot; Hyperpolarization &middot; resting Potential</div><div class="mnem-x">ARP (absolute refractory period) = during depolarization + repolarization (Na+ channels INACTIVATED - physically IMPOSSIBLE to fire another AP). RRP (relative refractory period) = during hyperpolarization (possible but needs stronger stimulus). This prevents backward conduction of APs.</div></div>
+<ul>
+<li><b>Threshold (-55 mV)</b>: positive feedback begins (Hodgkin cycle): depolarization &rarr; more Na+ channels open &rarr; more Na+ in. Point of no return.</li>
+<li><b>Rising phase</b>: voltage-gated Na+ channels open rapidly; Na+ floods in; overshoots to +30 to +40 mV</li>
+<li><b>Falling phase</b>: Na+ channels inactivate (ARP begins); delayed K+ channels open &rarr; K+ rushes out &rarr; rapid repolarization</li>
+<li><b>Undershoot (-75 to -90 mV)</b>: K+ channels slow to close &rarr; brief hyperpolarization &rarr; RRP</li>
+<li><b>Saltatory conduction</b>: myelinated axons - AP "jumps" between Nodes of Ranvier &rarr; up to 150 m/s (vs ~1 m/s unmyelinated). Far more energy efficient.</li></ul>
+<h4>Brain Regions & Clinical Correlates</h4>
+<table class="nt-tbl"><tr><th>Region</th><th>Key Functions</th><th>Lesion Result</th></tr>
+<tr><td>Frontal lobe (precentral = 1° motor)</td><td>Voluntary movement; executive function; personality; Broca's area (L, area 44-45) = speech PRODUCTION</td><td>Contralateral UMN weakness; Broca's aphasia (non-fluent, understands but can't produce fluent speech)</td></tr>
+<tr><td>Parietal lobe (postcentral = 1° sensory)</td><td>Touch, pain, temp, proprioception; spatial awareness; body schema</td><td>Contralateral sensory loss; right parietal &rarr; hemispatial neglect</td></tr>
+<tr><td>Temporal lobe (Wernicke's = L superior temporal)</td><td>Hearing; language COMPREHENSION; hippocampus (memory); amygdala (emotion)</td><td>Wernicke's aphasia (fluent but meaningless speech); bilateral hippocampal damage &rarr; anterograde amnesia</td></tr>
+<tr><td>Cerebellum</td><td>Smooth coordination; error correction; motor learning; balance</td><td>IPSILATERAL deficits: ataxia, intention tremor, dysmetria, scanning dysarthria</td></tr>
+<tr><td>Brainstem</td><td>Midbrain: CN III-IV, substantia nigra (dopamine). Pons: CN V-VIII, respiratory rhythm. Medulla: CN IX-XII, cardiac/vasomotor/respiratory centers</td><td>Devastating; Parkinson's from substantia nigra dopamine loss (&rarr; treat with levodopa/carbidopa)</td></tr></table>
+<div class="nt-box warn"><b>&#x1F6A8; Stroke Nursing Priority:</b> Ischemic (87%): embolic (AFib most common) or thrombotic (atherosclerosis). Hemorrhagic (13%): intracerebral (HTN) or subarachnoid ("worst headache of life" = ruptured berry aneurysm). ~1.9 million neurons lost per minute untreated. FAST: Face drooping, Arm weakness, Speech difficulty, Time to call 911. tPA (alteplase) within 3-4.5 hours for ischemic stroke - EXCLUDE hemorrhage with CT FIRST (tPA in hemorrhagic stroke = fatal). Contralateral deficits (motor cortex decussates in medullary pyramidal decussation). Nursing: VS q15-30 min, q1h neuro checks, aspiration precautions, fall prevention, early PT/OT/SLP referrals.</div>`},
+
+{id:5,title:“Chapter 6: NS II - PNS, ANS & Special Senses”,sub:“12 Cranial nerves \xb7 Sympathetic vs parasympathetic \xb7 Vision \xb7 Hearing \xb7 Equilibrium”,icon:”\u{1F441}\uFE0F”,color:”#34d4b0”,
+srcs:[[“OpenStax A&P Ch. 13-16”,“https://openstax.org/books/anatomy-and-physiology/pages/13-introduction”],[“NCBI Cranial Nerves”,“https://www.ncbi.nlm.nih.gov/books/NBK537179/”]],
+body:`<h4>Cranial Nerves - All 12 Pairs</h4>
+
+<div class="mnem-box"><div class="mnem-lbl">&#x1F9E0; Cranial Nerve Names</div><div class="mnem-t">"Oh Oh Oh To Touch And Feel Very Good Velvet &mdash; Ah Heaven!"</div><div class="mnem-x">Olfactory, Optic, Oculomotor, Trochlear, Trigeminal, Abducens, Facial, Vestibulocochlear, Glossopharyngeal, Vagus, (spinal) Accessory, Hypoglossal. Type mnemonic: "Some Say Marry Money But My Brother Says Bad Business Marry Money" = Sensory, Sensory, Motor, Motor, Both, Motor, Both, Sensory, Both, Both, Motor, Motor.</div></div>
+<table class="nt-tbl"><tr><th>CN</th><th>Name</th><th>Key Function</th><th>Key Clinical</th></tr>
+<tr><td>I</td><td>Olfactory</td><td>Smell</td><td>Anosmia after head trauma; early COVID-19 sign</td></tr>
+<tr><td>II</td><td>Optic</td><td>Vision</td><td>MS optic neuritis: monocular pain + vision loss; papilledema = elevated ICP</td></tr>
+<tr><td>III</td><td>Oculomotor</td><td>4 EOMs, levator palpebrae, pupil constriction</td><td>CN III palsy: eye "down and out," ptosis, fixed dilated pupil &rarr; PComm aneurysm or uncal herniation</td></tr>
+<tr><td>IV</td><td>Trochlear</td><td>Superior oblique (depresses + intorts eye)</td><td>Vertical diplopia worse looking down stairs; head tilt to opposite side</td></tr>
+<tr><td>V</td><td>Trigeminal</td><td>Facial sensation (V1-V3); motor: muscles of mastication</td><td>Trigeminal neuralgia: lancinating V2/V3 face pain. Corneal reflex: V1 afferent + VII efferent</td></tr>
+<tr><td>VI</td><td>Abducens</td><td>Lateral rectus (abducts eye)</td><td>CN VI palsy = first sign of elevated ICP; medial deviation at rest</td></tr>
+<tr><td>VII</td><td>Facial</td><td>Motor: all facial expression; Para: lacrimal + salivary; Taste: anterior 2/3 tongue</td><td>Bell's palsy (LMN): entire ipsilateral face + FOREHEAD affected (vs UMN stroke = forehead SPARED)</td></tr>
+<tr><td>VIII</td><td>Vestibulocochlear</td><td>Hearing + equilibrium</td><td>Ototoxic drugs destroy outer hair cells: aminoglycosides, cisplatin, furosemide (high dose)</td></tr>
+<tr><td>IX</td><td>Glossopharyngeal</td><td>Taste post 1/3 tongue; gag afferent; carotid body</td><td>Gag reflex: CN IX afferent + CN X efferent</td></tr>
+<tr><td>X</td><td>Vagus</td><td>Parasympathetics to heart/lungs/GI; larynx/pharynx motor</td><td>Vagal maneuvers for SVT; hoarseness from recurrent laryngeal nerve injury (thyroid surgery, aortic aneurysm)</td></tr>
+<tr><td>XI</td><td>Spinal Accessory</td><td>Trapezius (shrug) + SCM (head rotation)</td><td>Injured in neck dissection &rarr; can't shrug ipsilateral shoulder</td></tr>
+<tr><td>XII</td><td>Hypoglossal</td><td>All tongue muscles</td><td>LMN lesion: tongue deviates TOWARD lesion side + atrophy. ALS often affects XII</td></tr></table>
+<h4>Autonomic Nervous System</h4>
+<table class="nt-tbl"><tr><th>Feature</th><th>Sympathetic</th><th>Parasympathetic</th></tr>
+<tr><td>Origin</td><td>Thoracolumbar (T1-L2)</td><td>Craniosacral (CN III,VII,IX,X + S2-S4)</td></tr>
+<tr><td>Effector NT</td><td>Norepinephrine (most); ACh exception: sweat glands + skeletal muscle vessels</td><td>Acetylcholine (muscarinic receptors)</td></tr>
+<tr><td>Heart</td><td>&uarr; HR (&beta;1 SA node), &uarr; contractility</td><td>&darr; HR (M2 SA node via IKACh)</td></tr>
+<tr><td>Lungs</td><td>Bronchodilation (&beta;2), &darr; secretions</td><td>Bronchoconstriction (M3), &uarr; secretions</td></tr>
+<tr><td>Eyes</td><td>Mydriasis - pupil dilation (&alpha;1 dilator)</td><td>Miosis - constriction (M3 sphincter); accommodation (M3 ciliary)</td></tr>
+<tr><td>Bladder</td><td>&uarr; internal sphincter (&alpha;1) &rarr; urinary RETENTION</td><td>&uarr; detrusor (M3), &darr; sphincter &rarr; urination</td></tr></table>
+<div class="nt-box tip"><b>&#x1F48A; Autonomic Pharmacology:</b> Atropine (muscarinic antagonist): &uarr; HR (treat bradycardia); &darr; secretions; mydriasis; toxidrome: "Mad as a hatter (delirium), dry as a bone, red as a beet, blind as a bat, hot as a hare." Epinephrine (&alpha;1+&beta;1+&beta;2): 1st line anaphylaxis (IM thigh), cardiac arrest, severe bronchospasm. Propranolol (non-selective &beta;-blocker): CONTRAINDICATED in asthma (blocks &beta;2 &rarr; bronchoconstriction). Albuterol (&beta;2 agonist): bronchodilation; side effects: tremor + tachycardia.</div>
+<h4>Special Senses</h4>
+<figure class="ni-img"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Anatomy_of_the_Human_Ear.svg/600px-Anatomy_of_the_Human_Ear.svg.png" alt="Ear anatomy" loading="lazy"/><figcaption>Complete ear anatomy &mdash; trace sound waves from pinna to auditory cortex. Know tonotopic organization of the basilar membrane.</figcaption></figure>
+<p><b>Hearing</b>: Pinna &rarr; EAC &rarr; Tympanic membrane &rarr; Ossicles (Malleus &rarr; Incus &rarr; Stapes; amplify ~20x) &rarr; Oval window &rarr; Cochlea. Basilar membrane: <b>BASE = stiff = HIGH frequency</b>; APEX = flexible = low frequency. Inner hair cells &rarr; CN VIII &rarr; cochlear nuclei &rarr; inferior colliculus &rarr; MGN (thalamus) &rarr; Heschl's gyri (primary auditory cortex). Ototoxic drugs destroy outer hair cells: aminoglycosides (gentamicin), cisplatin, furosemide (high dose) &rarr; irreversible SNHL.</p>
+<p><b>Vision</b>: Cornea (70% refraction) &rarr; Pupil &rarr; Lens (M3 ciliary muscle contracts &rarr; lens rounds &rarr; near accommodation) &rarr; Retina (rods: night/motion; cones: color/acuity at fovea). Optic chiasm: nasal fibers cross &rarr; each optic tract = contralateral visual field from both eyes. Pituitary tumor compresses chiasm &rarr; bitemporal hemianopia.</p>
+<p><b>Equilibrium</b>: Static (gravity + linear acceleration): utricle + saccule; otoconia (CaCO3 crystals); BPPV = displaced otoconia &rarr; Epley maneuver. Dynamic (rotation): 3 semicircular canals; endolymph inertia deflects cupula &rarr; VOR (vestibuloocular reflex).</p>`},
+
+{id:6,title:“Chapter 7: Cardiovascular System”,sub:“Heart anatomy \xb7 Conduction \xb7 ECG \xb7 Cardiac output \xb7 Vessels”,icon:”\u2764\uFE0F”,color:”#f7617a”,
+srcs:[[“OpenStax A&P Ch. 19 & 20”,“https://openstax.org/books/anatomy-and-physiology/pages/19-introduction”],[“LITFL ECG Library”,“https://litfl.com/ecg-library/”]],
+body:`<h4>Heart Anatomy & Valves</h4>
+
+<figure class="ni-img"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Heart_diagram-en.svg/600px-Heart_diagram-en.svg.png" alt="Heart anatomy" loading="lazy"/><figcaption>Heart anatomy &mdash; every chamber, valve, and vessel must be mastered before cardiac physiology.</figcaption></figure>
+<div class="mnem-box"><div class="mnem-lbl">&#x1F9E0; Valve Order</div><div class="mnem-t">"Try Pulling My Aorta" &rarr; Tricuspid &middot; Pulmonary &middot; Mitral &middot; Aortic</div><div class="mnem-x">Blood flows through exactly this order: right side first (T &rarr; P) then left side (M &rarr; A). Left ventricle wall is 3x thicker than right (pumps against systemic resistance vs pulmonary resistance).</div></div>
+<h4>Coronary Arteries</h4>
+<ul>
+<li><b>RCA</b>: supplies RA, RV, inferior LV, SA node (60%), AV node (85%). Occlusion &rarr; inferior MI: ST elevation II, III, aVF &rarr; bradyarrhythmias from AV node ischemia</li>
+<li><b>LAD "Widowmaker"</b>: supplies anterior LV, anterior 2/3 IVS, RBB, left anterior fascicle. Occlusion &rarr; anterior MI: ST elevation V1-V4, new LBBB</li>
+<li><b>LCx</b>: obtuse marginals &rarr; lateral LV. Occlusion &rarr; lateral MI: ST elevation I, aVL, V5-V6</li>
+<li>Coronary arteries fill during <b>DIASTOLE</b> - tachycardia &darr; diastolic time &darr; coronary perfusion &rarr; angina</li></ul>
+<h4>Cardiac Conduction</h4>
+<p>SA node (60-100 bpm, pacemaker) &rarr; AV node (40-60 bpm; 120-200 ms delay = PR interval; only pathway through fibrous annulus; 85% supplied by RCA &rarr; inferior MI &rarr; AV block) &rarr; Bundle of His &rarr; RBB + LBB &rarr; Purkinje fibers (20-40 bpm escape). <b>Cardiac AP plateau phase (Phase 2)</b>: L-type Ca2+ channels; prolongs AP to 200-400 ms &rarr; prevents tetanus = essential for ventricular filling.</p>
+<figure class="ni-img"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/SinusRhythmLabels.svg/600px-SinusRhythmLabels.svg.png" alt="ECG waveforms" loading="lazy"/><figcaption>Normal ECG &mdash; master each wave, interval, and the electrophysiological event it represents.</figcaption></figure>
+<table class="nt-tbl"><tr><th>ECG Feature</th><th>Represents</th><th>Normal</th><th>Abnormal/Clinical</th></tr>
+<tr><td>P wave</td><td>Atrial depolarization</td><td>&lt;120 ms, &lt;2.5 mm</td><td>Absent = AFib/flutter; bifid = LA enlargement</td></tr>
+<tr><td>PR interval</td><td>AV nodal conduction</td><td>120-200 ms</td><td>&gt;200 = 1st degree AV block; Wenckebach = progressive PR prolongation then dropped beat; Mobitz II = fixed PR + dropped beats &rarr; pacemaker; 3rd degree = no P-QRS relationship</td></tr>
+<tr><td>QRS</td><td>Ventricular depolarization</td><td>&lt;120 ms</td><td>&gt;120 = BBB; delta wave (slurred upstroke) = WPW; new LBBB = STEMI equivalent</td></tr>
+<tr><td>ST segment</td><td>Early ventricular repolarization</td><td>Isoelectric &plusmn;0.5 mm</td><td>ELEVATION &gt;1 mm = STEMI or pericarditis; DEPRESSION = NSTEMI or digoxin effect</td></tr>
+<tr><td>QTc</td><td>Total ventricular activity</td><td>&lt;440 ms men; &lt;460 ms women</td><td>Prolonged &rarr; Torsades de Pointes risk &rarr; VF: sotalol, haloperidol, methadone, erythromycin, quinolones, hypokalemia, hypomagnesemia</td></tr></table>
+<div class="nt-box star"><b>&#11088; Cardiac Output:</b> CO = HR x SV (normal ~5 L/min). SV = EDV - ESV (normal ~70 mL). EF = SV/EDV x 100% (normal &ge;55%). EF &lt;40% = HFrEF. Preload (ventricular filling/EDV): &uarr; preload &rarr; &uarr; SV (Frank-Starling law). Afterload (resistance to ejection = SVR): &uarr; afterload &rarr; &darr; SV. MAP = CO x SVR; target MAP &ge;65 mmHg in septic shock. Dobutamine (&beta;1+weak &beta;2): &uarr; contractility + &darr; afterload = &uarr; CO; cardiogenic shock. Norepinephrine (&alpha;1+&beta;1): &uarr; SVR &rarr; &uarr; MAP; 1st line septic shock. Beck's triad of cardiac tamponade: hypotension + JVD + muffled heart sounds &rarr; emergency pericardiocentesis.</div>`},
+
+{id:7,title:“Chapter 8: Respiratory System & Blood”,sub:“Airways \xb7 Gas exchange \xb7 Lung volumes \xb7 Blood cells \xb7 Hemostasis”,icon:”\u{1FAC1}”,color:”#86efac”,
+srcs:[[“OpenStax A&P Ch. 18 & 22”,“https://openstax.org/books/anatomy-and-physiology/pages/22-introduction”],[“American Lung Association”,“https://www.lung.org/lung-health-diseases/how-lungs-work”]],
+body:`<h4>Respiratory Tract</h4>
+
+<figure class="ni-img"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Respiratory_system_complete_en.svg/500px-Respiratory_system_complete_en.svg.png" alt="Respiratory system" loading="lazy"/><figcaption>Complete respiratory system &mdash; trace air from nose to alveoli and understand each structure's function.</figcaption></figure>
+<p><b>Key anatomical points</b>: Carina at T4/T5 = most sensitive cough trigger. <b>Right mainstem bronchus</b>: wider, shorter, more vertical (~25&deg;) &rarr; aspirated objects go RIGHT &rarr; always check bilateral breath sounds after ETT insertion. Cricothyroid membrane = emergency surgical airway (cricothyrotomy). <b>Alveoli</b> (~300 million): Type I pneumocytes (squamous; gas exchange; ~95% surface area); Type II pneumocytes (cuboidal; produce <b>surfactant</b>; progenitor for Type I). Surfactant (DPPC): reduces surface tension &rarr; prevents collapse (Laplace: P=2T/r; smaller alveoli highest risk). Neonatal RDS: premature &lt;32 weeks &rarr; surfactant deficiency &rarr; treat with antenatal betamethasone + postnatal exogenous surfactant.</p>
+<figure class="ni-img"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Alveoli_diagram.svg/500px-Alveoli_diagram.svg.png" alt="Alveolar gas exchange" loading="lazy"/><figcaption>Alveolar gas exchange &mdash; driven entirely by partial pressure gradients; no energy required.</figcaption></figure>
+<table class="nt-tbl"><tr><th>Parameter</th><th>Normal Value</th><th>Clinical Note</th></tr>
+<tr><td>Tidal Volume (TV)</td><td>~500 mL</td><td>Lung-protective ventilation in ARDS: 6 mL/kg IBW to prevent barotrauma (ARMA trial)</td></tr>
+<tr><td>FEV1/FVC ratio</td><td>&ge;70%</td><td>&lt;70% = obstructive (COPD, asthma); &ge;70% with &darr; FVC = restrictive (fibrosis, obesity)</td></tr>
+<tr><td>Residual Volume (RV)</td><td>~1,200 mL</td><td>Cannot measure with spirometry alone (body plethysmography needed); &uarr; in emphysema (air trapping)</td></tr>
+<tr><td>Driving pressure for breathing</td><td>CO2 (central chemoreceptors)</td><td>COPD "CO2 retainers": do NOT correct O2 to 100% &rarr; removes hypoxic drive &rarr; apnea risk; target SpO2 88-92%</td></tr></table>
+<h4>Gas Transport & Hemoglobin</h4>
+<p>O2 dissociation curve is sigmoid (cooperative binding). <b>Right shift</b> (&darr; O2 affinity &rarr; &uarr; O2 delivery to tissues): &uarr; temp, &uarr; CO2, &uarr; [H+] (Bohr effect), &uarr; 2,3-DPG. <b>Left shift</b> (&uarr; O2 affinity &rarr; &darr; O2 release): &darr; temp, alkalosis, fetal HbF (higher affinity = better placental O2 extraction), carboxyhemoglobin (CO). <b>CO poisoning</b>: 240x affinity for Hgb; SpO2 falsely normal (pulse ox can't distinguish); cherry-red skin; treat with 100% O2 (or hyperbaric O2). CO2 transport: 70% as HCO3- (carbonic anhydrase), 23% carbaminohemoglobin, 7% dissolved.</p>
+<h4>Blood - White Cells & Hemostasis</h4>
+<div class="mnem-box"><div class="mnem-lbl">&#x1F9E0; WBC Differential (NBELMA)</div><div class="mnem-t">"Never Eat Bananas Lemons Makes Me Angry" &rarr; Neutrophils (60-70%) &middot; Eosinophils (2-4%) &middot; Basophils (&lt;1%) &middot; Lymphocytes (20-30%) &middot; Monocytes (2-8%)</div><div class="mnem-x">Neutrophils = FIRST responders to bacteria (elevated in bacterial infections, MI, steroids). Eosinophils = parasites + allergies. Lymphocytes = viral infections. Monocytes = differentiate into macrophages in tissues.</div></div>
+<div class="nt-box warn"><b>&#x1F6A8; Hemostasis & Anticoagulants - Must Know!</b> Primary hemostasis: vascular spasm &rarr; platelet plug (collagen &rarr; vWF &rarr; GPIb &rarr; adhesion &rarr; activation &rarr; ADP [P2Y12 blocked by clopidogrel/ticagrelor] + TXA2 [COX-1 blocked by aspirin] &rarr; GPIIb/IIIa [blocked by abciximab/eptifibatide] &rarr; aggregation). HIT Type II: anti-PF4 antibodies &rarr; paradoxical THROMBOSIS despite low platelets &rarr; STOP heparin immediately &rarr; use argatroban/bivalirudin. Warfarin: blocks Vit K epoxide reductase &rarr; &darr; factors II,VII,IX,X,C,S; monitor INR; reverse: Vit K (slow), FFP or 4-factor PCC (rapid). DOACs: rivaroxaban/apixaban (anti-Xa &rarr; andexanet alfa reversal); dabigatran (direct thrombin inhibitor &rarr; idarucizumab reversal).</div>`},
+
+{id:8,title:“Chapter 9: Digestive & Urinary Systems”,sub:“GI secretion \xb7 Absorption \xb7 GI hormones \xb7 Nephron \xb7 Diuretics \xb7 RAAS”,icon:”\u{1FAD2}”,color:”#a78bfa”,
+srcs:[[“OpenStax A&P Ch. 23 & 25”,“https://openstax.org/books/anatomy-and-physiology/pages/23-introduction”],[“Khan Academy Kidneys”,“https://www.khanacademy.org/science/health-and-medicine/kidney-urinary-system”]],
+body:`<h4>Stomach - Gastric Secretion</h4>
+
+<figure class="ni-img"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Stomach_diagram.svg/500px-Stomach_diagram.svg.png" alt="Stomach and digestive system" loading="lazy"/><figcaption>Digestive system overview &mdash; trace food from mouth to anus and know each organ's secretions and functions.</figcaption></figure>
+<ul>
+<li><b>Parietal cells (body + fundus)</b>: &rarr; HCl (via H+/K+-ATPase = proton pump; target of PPIs: omeprazole, pantoprazole) + <b>Intrinsic factor</b> (IF; required for B12 absorption in terminal ileum; pernicious anemia = anti-parietal cell / anti-IF antibodies &rarr; B12 deficiency &rarr; megaloblastic anemia + subacute combined degeneration of spinal cord [dorsal columns + lateral CST])</li>
+<li><b>Chief cells</b>: &rarr; pepsinogen (activated by HCl &rarr; pepsin)</li>
+<li><b>G cells (antrum)</b>: &rarr; gastrin (stimulated by protein, vagal stimulation, distension; inhibited by pH &lt;3)</li>
+<li><b>NSAIDs</b>: inhibit COX &rarr; &darr; prostaglandins E2/I2 &rarr; &darr; mucosal protection &rarr; peptic ulcer risk</li></ul>
+<div class="nt-box star"><b>&#11088; GI Hormones:</b> Gastrin (G cells, antrum): protein &rarr; &uarr; HCl + gastric motility. Secretin (S cells, duodenum): ACID &rarr; &uarr; pancreatic HCO3- + &darr; gastric acid. CCK (I cells, duodenum): FAT+PROTEIN &rarr; &uarr; pancreatic ENZYMES + gallbladder contraction + &darr; gastric emptying (satiety). GIP (K cells): glucose+fat &rarr; &uarr; insulin (incretin effect = basis for DPP-4 inhibitors [sitagliptin] and GLP-1 agonists [semaglutide, liraglutide]).</div>
+<h4>Small Intestine - Absorption</h4>
+<p>~6 m. Surface area amplification: plicae circulares (x3) x villi (x10) x microvilli/brush border (x20) = x600 &rarr; total ~250 m2. <b>Duodenum</b>: absorbs iron (ferrous Fe2+ via DMT-1), calcium (vitamin D-dependent), folate. <b>Jejunum</b>: amino acids (Na+-coupled cotransporters), monosaccharides (glucose + galactose via SGLT-1; fructose via GLUT-5; all exit via GLUT-2 into blood), fatty acids (chylomicrons &rarr; lacteals &rarr; thoracic duct &rarr; bypasses liver). <b>Ileum</b>: B12-IF complex (cubam receptor), bile salts (~95% recycled via enterohepatic circulation; terminal ileum disease/resection &rarr; fat malabsorption + fat-soluble vitamin deficiency + steatorrhea).</p>
+<h4>Nephron - Segment by Segment</h4>
+<figure class="ni-img"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Kidney_Nephron.png/500px-Kidney_Nephron.png" alt="Kidney nephron" loading="lazy"/><figcaption>Complete nephron &mdash; trace filtrate from Bowman's capsule through each segment understanding what is reabsorbed, secreted, and the diuretic target at each site.</figcaption></figure>
+<table class="nt-tbl"><tr><th>Segment</th><th>Key Transport</th><th>Diuretic Target</th></tr>
+<tr><td>Glomerulus</td><td>Hydrostatic pressure drives ~180 L/day filtrate; GFR = 125 mL/min; filtration barrier: fenestrated endothelium + GBM (negative charge repels albumin) + podocyte filtration slits</td><td>&mdash;</td></tr>
+<tr><td>PCT</td><td>Reabsorbs 65-70% of filtered water, Na+, Cl-, K+, HCO3- (NHE3), glucose (SGLT-2 then SGLT-1), amino acids. Secretes H+, NH4+, organic drugs</td><td>SGLT-2 inhibitors (empagliflozin): glycosuria + Na+ diuresis &rarr; &darr; glucose + &darr; BP + heart/kidney protection. Acetazolamide (CA inhibitor &rarr; altitude sickness, glaucoma)</td></tr>
+<tr><td>Loop of Henle - thick ascending</td><td>IMPERMEABLE to water (no AQP); NKCC2 reabsorbs 1Na++1K++2Cl-; K+ recycles &rarr; lumen-positive potential &rarr; paracellular Ca2+ + Mg2+ reabsorption; builds medullary concentration gradient</td><td>Loop diuretics (furosemide, bumetanide - block NKCC2; most potent; 1st line acute pulmonary edema, HF, hypercalcemia; &uarr; urinary Ca2+, Mg2+)</td></tr>
+<tr><td>DCT</td><td>NCC (Na+-Cl- cotransporter); Ca2+ reabsorption via TRPV5 (stimulated by PTH + vitamin D)</td><td>Thiazides (HCTZ, chlorthalidone - block NCC; &darr; urinary Ca2+ excretion = useful for Ca2+-kidney stones; 1st line HTN)</td></tr>
+<tr><td>Collecting duct</td><td>ADH (V2 receptor &rarr; AQP2 insertion &rarr; &uarr; water reabsorption); Aldosterone (MR receptor &rarr; &uarr; ENaC + Na+/K+-ATPase &rarr; &uarr; Na+ reabsorption + &uarr; K+ secretion)</td><td>K+-sparing: spironolactone/eplerenone (aldosterone antagonists; HF, cirrhosis); amiloride/triamterene (block ENaC directly)</td></tr></table>
+<div class="nt-box star"><b>&#11088; RAAS:</b> &darr; renal perfusion &rarr; JG cells secrete RENIN &rarr; angiotensinogen (liver) &rarr; Angiotensin I &rarr; ACE (lung) &rarr; Angiotensin II &rarr; AT1 receptors: (1) vasoconstriction; (2) adrenal &rarr; aldosterone &rarr; Na+/water retention; (3) hypothalamus &rarr; ADH + thirst; (4) sympathetic stimulation. Net: &uarr; BP + &uarr; blood volume. ACEi (lisinopril): block ACE &rarr; &darr; Ang II + &uarr; bradykinin (&rarr; dry cough, angioedema). ARBs (losartan): block AT1 receptor (use if ACEi-intolerant). Both reduce mortality in HFrEF + slow diabetic nephropathy progression.</div>`},
+
+{id:9,title:“Chapter 10: Endocrine & Reproductive Systems”,sub:“Hormone mechanisms \xb7 Hypothalamus-pituitary axis \xb7 Adrenals \xb7 Menstrual cycle \xb7 Diabetes”,icon:”\u2697\uFE0F”,color:”#fb923c”,
+srcs:[[“OpenStax A&P Ch. 17 & 27”,“https://openstax.org/books/anatomy-and-physiology/pages/17-introduction”],[“Endocrine Society Patient Library”,“https://www.endocrine.org/patient-engagement/endocrine-library”]],
+body:`<h4>Hormone Mechanisms of Action</h4>
+
+<figure class="ni-img"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/Illu_endocrine_system.jpg/500px-Illu_endocrine_system.jpg" alt="Endocrine system" loading="lazy"/><figcaption>All major endocrine glands &mdash; know what each secretes, its stimulus, and its negative feedback loop.</figcaption></figure>
+<table class="nt-tbl"><tr><th>Type</th><th>Examples</th><th>Mechanism</th></tr>
+<tr><td>Lipid-soluble steroids</td><td>Cortisol, aldosterone, testosterone, estrogen, progesterone, calcitriol</td><td>Cross membrane &rarr; intracellular receptor &rarr; binds HRE in DNA &rarr; altered gene transcription. Slow onset (hours), long-lasting</td></tr>
+<tr><td>Thyroid hormones (T3/T4)</td><td>T3 (active), T4 (prohormone, converted to T3 peripherally by 5'-deiodinase)</td><td>Same as steroids; T3 directly activates nuclear gene transcription (TRalpha, TRbeta)</td></tr>
+<tr><td>Water-soluble peptides (Gs/cAMP)</td><td>Glucagon, PTH, ACTH, TSH, LH, FSH, ADH (V2), beta-adrenergic</td><td>GPCR &rarr; Gs &rarr; adenylate cyclase &rarr; &uarr; cAMP &rarr; PKA &rarr; protein phosphorylation. Fast onset (minutes)</td></tr>
+<tr><td>Receptor tyrosine kinase</td><td>Insulin, IGF-1, EGF, FGF</td><td>Ligand &rarr; receptor dimerization &rarr; autophosphorylation &rarr; IRS-1/PI3K/AKT (metabolic effects) or RAS-MAPK (growth). Fast onset</td></tr>
+<tr><td>JAK-STAT</td><td>GH, prolactin, EPO, cytokines (IL-2, IL-6, IFN)</td><td>Ligand &rarr; receptor dimerization &rarr; JAK &rarr; STAT phosphorylation &rarr; STAT dimer &rarr; nucleus &rarr; gene transcription</td></tr></table>
+<div class="mnem-box"><div class="mnem-lbl">&#x1F9E0; Anterior Pituitary Hormones</div><div class="mnem-t">"FLAT PiG" &rarr; FSH &middot; LH &middot; ACTH &middot; TSH &middot; Prolactin &middot; (i) &middot; GH</div><div class="mnem-x">Cell types: Gonadotrophs (FSH+LH), Corticotrophs (ACTH+MSH from POMC), Thyrotrophs (TSH), Somatotrophs (GH), Lactotrophs (prolactin). Only prolactin is under TONIC INHIBITION by dopamine - unique! Antipsychotics block dopamine &rarr; &uarr; prolactin &rarr; galactorrhea + amenorrhea + infertility.</div></div>
+<h4>Key Endocrine Axes</h4>
+<figure class="ni-img"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Hormone_feedback.svg/500px-Hormone_feedback.svg.png" alt="Hormone feedback loop" loading="lazy"/><figcaption>Hypothalamus-pituitary-target gland axis with negative feedback &mdash; the master pattern for most endocrine control.</figcaption></figure>
+<p><b>Cortisol (zona fasciculata)</b>: CRH &rarr; ACTH &rarr; cortisol. Actions: &uarr; gluconeogenesis + glycogenolysis &rarr; &uarr; blood glucose; &uarr; lipolysis; anti-inflammatory (&darr; phospholipase A2 &rarr; &darr; PG/LT; &darr; NF-kB &rarr; &darr; cytokines); immunosuppressive. Peak 6-8 AM (circadian). <b>Cushing's syndrome</b>: excess cortisol &rarr; central obesity, moon face, buffalo hump, purple striae, osteoporosis, hyperglycemia, hypertension. <b>Addison's disease</b>: &darr; cortisol + &darr; aldosterone &rarr; fatigue, hypotension, hyponatremia, hyperkalemia, hyperpigmentation (ACTH &uarr; &rarr; MSH &uarr;). Addisonian crisis: severe hypotension + shock &rarr; IV hydrocortisone 100 mg IMMEDIATELY + IV fluids (do not wait for labs).</p>
+<h4>Adrenal Cortex Zones</h4>
+<div class="mnem-box"><div class="mnem-lbl">&#x1F9E0; Adrenal Cortex</div><div class="mnem-t">"GFR: Glomerulosa=Aldosterone (Salt), Fasciculata=Cortisol (Sugar), Reticularis=Androgens (Sex)"</div><div class="mnem-x">Outer to inner: G=Glomerulosa (mineralocorticoids), F=Fasciculata (glucocorticoids, largest zone), R=Reticularis (sex steroids). Adrenal MEDULLA (chromaffin cells, modified postganglionic sympathetic neurons) = epinephrine (80%) + norepinephrine (20%) &rarr; pheochromocytoma = excess &rarr; episodic HTN + headache + diaphoresis + palpitations.</div></div>
+<h4>Menstrual Cycle</h4>
+<table class="nt-tbl"><tr><th>Phase</th><th>Days</th><th>Hormones</th><th>Events</th></tr>
+<tr><td>Menstruation</td><td>1-5</td><td>&darr; Progesterone + estrogen (corpus luteum dies)</td><td>Functional endometrium shed; PGF2a &rarr; dysmenorrhea &rarr; NSAIDs treat</td></tr>
+<tr><td>Follicular/Proliferative</td><td>1-13</td><td>&uarr; FSH &rarr; growing follicles &rarr; &uarr; estrogen. Late: peak estrogen &rarr; POSITIVE feedback &rarr; LH + FSH surges</td><td>Endometrium proliferates under estrogen</td></tr>
+<tr><td>Ovulation</td><td>~Day 14</td><td>LH surge (triggered by peak estrogen) &rarr; dominant follicle ruptures ~36-40 hrs later. BBT rises 0.5&deg;C after ovulation (progesterone thermogenic)</td><td>Secondary oocyte released; fertilization window ~24 hr for egg, 3-5 days for sperm</td></tr>
+<tr><td>Luteal/Secretory</td><td>15-28</td><td>LH &rarr; corpus luteum &rarr; progesterone (dominant) + estrogen. No fertilization: corpus luteum degenerates &rarr; &darr; P + E &rarr; cycle restarts. Fertilization: embryo secretes hCG by day 8-10 &rarr; maintains corpus luteum &rarr; progesterone sustained until placenta takes over (~8-10 wks)</td><td>Secretory endometrium; decidualization; implantation site preparation</td></tr></table>
+<div class="nt-box warn"><b>&#x1F6A8; Diabetes Mellitus:</b> Type 1: autoimmune beta-cell destruction &rarr; absolute insulin deficiency &rarr; DKA (hyperglycemia + ketosis + &darr; pH + Kussmaul breathing + fruity breath; treat: IV fluids + insulin AFTER K+ &ge;3.5 + K+ replacement). Type 2: insulin resistance + relative deficiency &rarr; HHS (extreme hyperglycemia + dehydration; no significant ketosis). Medications: Metformin (1st line; &darr; hepatic gluconeogenesis; weight neutral; &darr; CV events; HOLD if CrCl &lt;30 - lactic acidosis risk); SGLT-2i (empagliflozin: &darr; CV death + HF hospitalization + CKD progression; side effects: UTI, genital yeast); GLP-1 agonists (semaglutide: &darr; CV events + weight loss; nausea main side effect); Sulfonylureas (&uarr; insulin secretion &rarr; hypoglycemia risk). HbA1c goal: &le;7% for most; &le;8% for elderly/complex. Insulin: rapid-acting (lispro, aspart: onset 5-15 min); glargine/detemir (long-acting, no peak = preferred basal).</div>`}
+];
+
+</script>
+<script>
+
+// ═══════════════════ STATE ═══════════════════
+const STATE = {
+passed: [],
+scores: {},
+cooldowns: {},
+curPart: 0,
+shuffled: [],
+qi: 0,
+curScore: 0,
+answers: [],
+totalCorrect: 0,
+totalAnswered: 0
+};
+
+function saveState() {
+try { localStorage.setItem(‘apv3state’, JSON.stringify({passed:STATE.passed,scores:STATE.scores,cooldowns:STATE.cooldowns,totalCorrect:STATE.totalCorrect,totalAnswered:STATE.totalAnswered})); } catch(e){}
+}
+function loadState() {
+try {
+const d = JSON.parse(localStorage.getItem(‘apv3state’) || ‘{}’);
+if(d.passed) STATE.passed = d.passed;
+if(d.scores) STATE.scores = d.scores;
+if(d.cooldowns) STATE.cooldowns = d.cooldowns;
+if(d.totalCorrect) STATE.totalCorrect = d.totalCorrect;
+if(d.totalAnswered) STATE.totalAnswered = d.totalAnswered;
+} catch(e){}
+}
+
+// ═══════════════════ SHUFFLE ═══════════════════
+function shuffle(arr) {
+const a = […arr];
+for(let i = a.length - 1; i > 0; i–) {
+const j = Math.floor(Math.random() * (i + 1));
+[a[i], a[j]] = [a[j], a[i]];
+}
+return a;
+}
+function buildShuffledQuiz(partIdx) {
+const qs = QUESTIONS.filter(q => q.p === partIdx);
+return shuffle(qs).map(q => {
+const idxMap = shuffle([0,1,2,3]);
+const newOpts = idxMap.map(i => q.o[i]);
+const newAns = idxMap.indexOf(q.a);
+return { …q, o: newOpts, a: newAns };
+});
+}
+
+// ═══════════════════ VIEW MANAGEMENT ═══════════════════
+let cdInterval = null;
+function showView(id) {
+document.querySelectorAll(’.view’).forEach(v => v.classList.remove(‘on’));
+document.getElementById(‘view-’ + id).classList.add(‘on’);
+document.querySelectorAll(’.tab’).forEach(t => t.classList.remove(‘on’));
+if(id === ‘home’) document.querySelector(’.tab[onclick=“showView('home')”]’).classList.add(‘on’);
+if(id === ‘notes’) document.querySelector(’.tab[onclick=“showView('notes')”]’).classList.add(‘on’);
+if(cdInterval && id !== ‘cooldown’) { clearInterval(cdInterval); cdInterval = null; }
+window.scrollTo(0, 0);
+}
+
+// ═══════════════════ QUIZ FLOW ═══════════════════
+function tryPart(idx) {
+if(idx > 0 && !STATE.passed.includes(idx - 1)) {
+document.getElementById(‘ls-title’).textContent = ‘Part ’ + (idx + 1) + ’ is Locked \uD83D\uDD12’;
+document.getElementById(‘ls-msg’).textContent = ‘You need to pass Part ’ + idx + ’ with at least 80% (8/10) before unlocking this section. Read the notes carefully!’;
+document.getElementById(‘ls-studybtn’).onclick = () => { showView(‘notes’); expandChap(idx); };
+showView(‘locked’);
+return;
+}
+const now = Date.now();
+const unlock = STATE.cooldowns[idx] || 0;
+if(unlock > now) {
+STATE.curPart = idx;
+showView(‘cooldown’);
+startCooldownTimer(idx);
+return;
+}
+startQuiz(idx);
+}
+
+function startQuiz(idx) {
+STATE.curPart = idx;
+STATE.shuffled = buildShuffledQuiz(idx);
+STATE.qi = 0;
+STATE.curScore = 0;
+STATE.answers = [];
+document.getElementById(‘quiz-title’).textContent = PARTS[idx].title;
+showView(‘quiz’);
+renderQuestion();
+}
+
+function renderQuestion() {
+const q = STATE.shuffled[STATE.qi];
+const total = STATE.shuffled.length;
+document.getElementById(‘prog-fill’).style.width = ((STATE.qi / total) * 100) + ‘%’;
+document.getElementById(‘prog-lbl’).textContent = ’Question ’ + (STATE.qi + 1) + ’ of ’ + total;
+document.getElementById(‘score-lbl’).textContent = ’Score: ’ + STATE.curScore;
+document.getElementById(‘q-num’).textContent = ‘Q’ + (STATE.qi + 1) + ’ of ’ + total;
+document.getElementById(‘q-txt’).textContent = q.q;
+const wrap = document.getElementById(‘opts-wrap’);
+wrap.innerHTML = ‘’;
+[‘A’,‘B’,‘C’,‘D’].forEach((lbl, i) => {
+const btn = document.createElement(‘button’);
+btn.className = ‘opt’;
+btn.innerHTML = ‘<span class="opt-lbl">’ + lbl + ‘</span><span>’ + q.o[i] + ‘</span>’;
+btn.onclick = () => answerQ(i, q.a, btn);
+wrap.appendChild(btn);
+});
+const fb = document.getElementById(‘fb-box’);
+fb.className = ‘fb’;
+fb.textContent = ‘’;
+document.getElementById(‘next-btn’).disabled = true;
+}
+
+function answerQ(chosen, correct, btn) {
+document.querySelectorAll(’.opt’).forEach(b => b.disabled = true);
+const ok = chosen === correct;
+if(ok) {
+btn.classList.add(‘ans-correct’);
+STATE.curScore++;
+document.getElementById(‘score-lbl’).textContent = ’Score: ’ + STATE.curScore;
+const fb = document.getElementById(‘fb-box’);
+fb.className = ‘fb on ok’;
+fb.textContent = ‘\u2713 Correct!’;
+} else {
+btn.classList.add(‘ans-wrong’);
+const fb = document.getElementById(‘fb-box’);
+fb.className = ‘fb on bad’;
+fb.textContent = ‘\u2717 Incorrect \u2014 review the notes and try again after the cooldown!’;
+}
+STATE.answers.push({ correct: ok, q: STATE.shuffled[STATE.qi].q });
+document.getElementById(‘next-btn’).disabled = false;
+}
+
+function nextQ() {
+STATE.qi++;
+if(STATE.qi >= STATE.shuffled.length) finishQuiz();
+else renderQuestion();
+}
+
+function finishQuiz() {
+const idx = STATE.curPart;
+const score = STATE.curScore;
+const total = STATE.shuffled.length;
+const pct = Math.round((score / total) * 100);
+const passed = pct >= 80;
+
+STATE.totalCorrect += score;
+STATE.totalAnswered += total;
+
+if(passed) {
+if(!STATE.passed.includes(idx)) STATE.passed.push(idx);
+} else {
+STATE.cooldowns[idx] = Date.now() + 10 * 60 * 1000;
+}
+if(STATE.scores[idx] === undefined || score > STATE.scores[idx]) STATE.scores[idx] = score;
+
+saveState();
+updateTabStates();
+updateHeaderScore();
+showResults(score, total, pct, passed, idx);
+}
+
+function showResults(score, total, pct, passed, idx) {
+document.getElementById(‘res-emoji’).textContent = passed ? ‘\uD83C\uDF89’ : ‘\uD83D\uDCDA’;
+document.getElementById(‘res-score’).textContent = score + ‘/’ + total;
+document.getElementById(‘res-score’).style.color = passed ? ‘var(–correct)’ : ‘var(–wrong)’;
+document.getElementById(‘res-title’).textContent = passed ? ‘You Passed! \uD83C\uDFC6’ : ‘Keep Studying! \uD83D\uDCAA’;
+document.getElementById(‘res-msg’).textContent = passed
+? ’You scored ’ + pct + ’% \u2014 great work! ’ + (idx < 9 ? ‘Part ’ + (idx + 2) + ’ is now unlocked.’ : ‘You completed all 10 parts!’)
+: ’You scored ’ + pct + ‘%. You need 80% (8/10) to pass. Study the notes carefully and retake in 10 minutes.’;
+document.getElementById(‘bd-c’).textContent = score;
+document.getElementById(‘bd-w’).textContent = total - score;
+document.getElementById(‘bd-p’).textContent = pct + ‘%’;
+document.getElementById(‘bd-p’).style.color = passed ? ‘var(–correct)’ : ‘var(–wrong)’;
+
+// Review list - ONLY checkmarks/X, no correct answer revealed
+const rv = document.getElementById(‘review-list’);
+rv.innerHTML = ‘<h4>Question Review</h4>’;
+STATE.answers.forEach((ans, i) => {
+const d = document.createElement(‘div’);
+d.className = ‘rv-item’;
+const qShort = ans.q.length > 90 ? ans.q.substring(0, 90) + ‘…’ : ans.q;
+d.innerHTML = ‘<span class="rv-icon">’ + (ans.correct ? ‘\u2705’ : ‘\u274C’) + ‘</span><span class="rv-txt">Q’ + (i+1) + ’: ’ + qShort + ‘</span>’;
+rv.appendChild(d);
+});
+
+const acts = document.getElementById(‘res-actions’);
+acts.innerHTML = ‘’;
+if(passed && idx < 9) {
+const nb = document.createElement(‘button’);
+nb.className = ‘btn teal’;
+nb.textContent = ‘Next: Part ’ + (idx + 2) + ’ \u2192’;
+nb.onclick = () => tryPart(idx + 1);
+acts.appendChild(nb);
+}
+const sb = document.createElement(‘button’);
+sb.className = ‘btn’ + (passed ? ’ sec’ : ‘’);
+sb.textContent = passed ? ‘\u2190 Home’ : ‘\uD83D\uDCDA Study Notes Now’;
+sb.onclick = passed ? () => showView(‘home’) : () => { showView(‘notes’); expandChap(idx); };
+acts.appendChild(sb);
+if(!passed) {
+const hb = document.createElement(‘button’);
+hb.className = ‘btn sec’;
+hb.textContent = ‘\u2190 Home’;
+hb.onclick = () => showView(‘home’);
+acts.appendChild(hb);
+}
+
+showView(‘results’);
+
+// Force redirect to notes on fail after short delay
+if(!passed) {
+setTimeout(() => {
+if(document.getElementById(‘view-results’).classList.contains(‘on’)) {
+showView(‘notes’);
+expandChap(idx);
+}
+}, 3500);
+}
+}
+
+// ═══════════════════ COOLDOWN TIMER ═══════════════════
+function startCooldownTimer(idx) {
+if(cdInterval) clearInterval(cdInterval);
+const el = document.getElementById(‘cd-timer’);
+function tick() {
+const remaining = Math.max(0, (STATE.cooldowns[idx] || 0) - Date.now());
+if(remaining <= 0) {
+clearInterval(cdInterval); cdInterval = null;
+delete STATE.cooldowns[idx];
+saveState();
+el.textContent = ‘00:00’;
+el.style.color = ‘var(–correct)’;
+setTimeout(() => { if(document.getElementById(‘view-cooldown’).classList.contains(‘on’)) startQuiz(idx); }, 800);
+return;
+}
+const m = Math.floor(remaining / 60000);
+const s = Math.floor((remaining % 60000) / 1000);
+el.textContent = String(m).padStart(2,‘0’) + ‘:’ + String(s).padStart(2,‘0’);
+}
+tick();
+cdInterval = setInterval(tick, 500);
+document.getElementById(‘cd-study-btn’).onclick = () => { showView(‘notes’); expandChap(STATE.curPart); };
+}
+
+// ═══════════════════ UI UPDATES ═══════════════════
+function updateHeaderScore() {
+if(STATE.totalAnswered > 0) {
+document.getElementById(‘hdr-score’).classList.add(‘on’);
+document.getElementById(‘hdr-score-n’).textContent = STATE.totalCorrect + ‘/’ + STATE.totalAnswered;
+}
+}
+function updateTabStates() {
+PARTS.forEach((p, i) => {
+const tab = document.getElementById(‘tp’ + i);
+if(!tab) return;
+tab.classList.remove(‘locked-tab’, ‘passed-tab’);
+if(i > 0 && !STATE.passed.includes(i - 1)) tab.classList.add(‘locked-tab’);
+else if(STATE.passed.includes(i)) tab.classList.add(‘passed-tab’);
+});
+}
+
+// ═══════════════════ NOTES ═══════════════════
+function expandChap(idx) {
+document.querySelectorAll(’.ch’).forEach(c => c.classList.remove(‘open’));
+const el = document.getElementById(‘chap-’ + idx);
+if(el) { el.classList.add(‘open’); setTimeout(() => el.scrollIntoView({ behavior: ‘smooth’, block: ‘start’ }), 120); }
+}
+function toggleChap(idx) {
+document.getElementById(‘chap-’ + idx).classList.toggle(‘open’);
+}
+
+// ═══════════════════ BUILD HOME ═══════════════════
+function buildHome() {
+const ng = document.getElementById(‘home-notes-grid’);
+const tg = document.getElementById(‘home-test-grid’);
+CHAPTERS.forEach((ch, i) => {
+const card = document.createElement(‘div’);
+card.className = ‘hcard’;
+card.style.setProperty(’–cc’, ch.color);
+card.innerHTML = ’<div class="cn">CHAPTER ’ + (i+1) + ‘</div><h3>’ + ch.icon + ’ ’ + ch.title.replace(‘Chapter ’ + (i+1) + ‘: ‘, ‘’) + ‘</h3><p>’ + ch.sub + ‘</p>’;
+card.onclick = () => { showView(‘notes’); expandChap(i); };
+ng.appendChild(card);
+});
+PARTS.forEach((p, i) => {
+const locked = i > 0 && !STATE.passed.includes(i - 1);
+const passed = STATE.passed.includes(i);
+const card = document.createElement(‘div’);
+card.className = ‘hcard’ + (locked ? ’ locked-card’ : ‘’);
+card.style.setProperty(’–cc’, p.color);
+const badge = locked ? ‘<span class="hcard-badge">\uD83D\uDD12</span>’ : (passed ? ‘<span class="hcard-badge">\u2705</span>’ : ‘’);
+const scoreStr = STATE.scores[i] !== undefined ? ’<div class="cpill">Best: ’ + STATE.scores[i] + ‘/10</div>’ : ‘’;
+card.innerHTML = badge + ’<div class="cn">PART ’ + (i+1) + ‘</div><h3>’ + p.title + ‘</h3><p>10 questions · Need 8/10 to pass</p><div class="cpills">’ + scoreStr + ‘</div>’;
+card.onclick = () => tryPart(i);
+tg.appendChild(card);
+});
+}
+
+// ═══════════════════ BUILD NOTES ═══════════════════
+function buildNotes() {
+const container = document.getElementById(‘chap-container’);
+CHAPTERS.forEach((ch, i) => {
+const wrap = document.createElement(‘div’);
+wrap.className = ‘ch’;
+wrap.id = ‘chap-’ + i;
+const srcLinks = ch.srcs.map(s =>
+‘<a class="src-a" href="' + s[1] + '" target="_blank" rel="noopener">🔗 ’ + s[0] + ‘</a>’
+).join(’’);
+wrap.innerHTML =
+‘<div class="ch-hdr" onclick="toggleChap(' + i + ')">’ +
+‘<div class="ch-hdr-l">’ +
+‘<div class="ch-ico" style="background:' + ch.color + '22;font-size:1.1rem">’ + ch.icon + ‘</div>’ +
+‘<div>’ +
+‘<div class="ch-ttl" style="color:' + ch.color + '">’ + ch.title + ‘</div>’ +
+‘<div class="ch-sub">’ + ch.sub + ‘</div>’ +
+‘</div>’ +
+‘</div>’ +
+‘<i class="chev">\u25BE</i>’ +
+‘</div>’ +
+‘<div class="ch-body">’ +
+‘<div class="ni">’ + ch.body + ‘</div>’ +
+‘<div class="src-sec"><div class="src-lbl">📚 Sources & Further Reading</div><div class="src-links">’ + srcLinks + ‘</div></div>’ +
+‘</div>’;
+container.appendChild(wrap);
+});
+}
+
+// ═══════════════════ INIT ═══════════════════
+document.addEventListener(‘DOMContentLoaded’, () => {
+loadState();
+buildHome();
+buildNotes();
+updateTabStates();
+updateHeaderScore();
+});
+
+</script>
+</body>
+</html>
